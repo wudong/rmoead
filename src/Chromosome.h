@@ -1,0 +1,41 @@
+/*
+ * Chromosome.h
+ *
+ *  Created on: 13 Aug 2009
+ *      Author: wudong
+ */
+
+#ifndef CHROMOSOME_H_
+#define CHROMOSOME_H_
+
+#include "global.h"
+#include "problem.h"
+#include "common.h"
+#include <boost/smart_ptr.hpp>
+
+class Chromosome;
+typedef boost::shared_ptr<Chromosome> ChromosomePtr;
+
+class Chromosome{
+public:
+	Chromosome();
+	virtual ~Chromosome();
+
+	double*  x_var;
+	double* y_obj;
+
+	int    rank;
+
+	void   rnd_init();
+	void   obj_eval();
+	void   show_objective();
+	void   show_variable();
+
+    bool   operator<(const Chromosome &ind2);
+	bool   operator<<(const Chromosome &ind2);
+    bool   operator==(const Chromosome &ind2);
+    void   operator=(const Chromosome &ind2);
+};
+
+
+#endif /* CHROMOSOME_H_ */
