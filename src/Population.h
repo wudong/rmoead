@@ -10,13 +10,22 @@
 
 #include "Chromosome.h"
 
+class Population;
+typedef boost::shared_ptr<Population> PopulationPtr;
+
 class Population {
 public:
-	Population();
+	Population(int popsize);
 
-	virtual ~Population();
+	virtual ~Population() {
+	}
+	;
 
 	std::vector<ChromosomePtr> individuals;
+
+	void seed(ChromosomePtr seed);
+	void evolve(int fes);
+	ChromosomePtr findBest();
 };
 
 #endif /* POPULATION_H_ */

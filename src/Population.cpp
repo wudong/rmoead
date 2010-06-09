@@ -7,11 +7,11 @@
 
 #include "Population.h"
 
-Population::Population() {
-	// TODO Auto-generated constructor stub
-
+Population::Population(int popsize) {
+	this->individuals.resize(popsize);
+	for (int i=0;i<popsize;i++){
+		ChromosomePtr ptr(new Chromosome());
+		this->individuals.push_back(ptr);
+	}
 }
 
-Population::~Population() {
-	// TODO Auto-generated destructor stub
-}
