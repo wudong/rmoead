@@ -3,33 +3,30 @@
  *
  *  Created on: 13 Aug 2009
  *      Author: wudong
+ *
  */
 
 #include "Subproblem.h"
 
-Subproblem::Subproblem() {
-	//queue_size = 0;
-	this->selection_times = 0;
-	this->isEdge = false;
-	this->searchSelected = false;
-	this->utility = 1;
+Subproblem::Subproblem() :
+	indiv(new Chromosome()), saved(new Chromosome()), lbest(new Chromosome()) {
 	this->de_f = 0.5;
 	this->de_cr = 1;
 	this->update_temp = 0;
+	this->utility = 1.0;
+	this->update_temp = 0;
+	this->selection_times = 0;
+	this->isEdge = false;
+	this->searchSelected = false;
 
-	namda = new double[nobj];
-    refpoint = new double[nobj];
-
-    this->indiv = new Chromosome();
+	namda.resize(nobj);
+	refpoint.resize(nobj);
 
 	this->indiv->rnd_init();
 	this->indiv->obj_eval();
-	this->saved = this->indiv;
-}
 
-Subproblem::~Subproblem() {
-	delete[] namda;
-	delete[] refpoint;
+	*this->saved = *this->indiv;
+	*this->lbest = *this->indiv;
 }
 
 void Subproblem::show_weight() {
@@ -40,14 +37,14 @@ void Subproblem::show_weight() {
 }
 
 double Subproblem::scalarObjective() {
-	return fitnessfunction(this->indiv.y_obj, this->namda);
+	return fitnessfunction(this->indiv->y_obj, this->namda);
 }
 
 void Subproblem::operator=(const Subproblem &sub2) {
-	this->indiv = sub2.indiv; // best solution
-	this->saved = sub2.saved; // last solution
-	for (unsigned int i = 0; i < nobj; i++)
-		this->namda[i] = sub2.namda[i];
+	*this->indiv = *sub2.indiv; // best solution
+	*this->saved = *sub2.saved; // last solution
+
+
 	this->neighbour = sub2.neighbour; // neighbourhood table
 	this->searchSelected = sub2.searchSelected;
 }
@@ -56,19 +53,19 @@ bool Subproblem::update(Chromosome &newind, bool updatecurrent) {
 	update_temp++;
 
 	double f1, f2, f0;
-	f0 = fitnessfunction(this->lbest.y_obj, this->namda);
-	f1 = fitnessfunction(this->indiv.y_obj, this->namda);
+	f0 = fitnessfunction(this->lbest->y_obj, this->namda);
+	f1 = fitnessfunction(this->indiv->y_obj, this->namda);
 	f2 = fitnessfunction(newind.y_obj, this->namda);
 
 	//update the best always.
 	if (f2 < f0)
-		this->lbest = newind;
+		*this->lbest = newind;
 
 	bool result;
 	if (updatecurrent) {
 		bool updated = f2 < f1;
 		if (updated) {
-			this->indiv = newind;
+			*this->indiv = newind;
 		}
 		result = updated;
 	} else
@@ -88,9 +85,9 @@ bool Subproblem::update(Chromosome &newind, bool updatecurrent) {
 void Subproblem::compute_util() {
 	double f0, f1, f2, uti, delta;
 
-	f0 = fitnessfunction(this->lbest.y_obj, this->namda);
-	f1 = fitnessfunction(this->indiv.y_obj, this->namda);
-	f2 = fitnessfunction(this->saved.y_obj, this->namda);
+	f0 = fitnessfunction(this->lbest->y_obj, this->namda);
+	f1 = fitnessfunction(this->indiv->y_obj, this->namda);
+	f2 = fitnessfunction(this->saved->y_obj, this->namda);
 
 	//	delta = f2 - f1;
 	//  TODO test
@@ -114,18 +111,13 @@ void Subproblem::compute_util() {
 }
 
 void Subproblem::postItr(int gen) {
-	//	int geninterval = getUtilityComputationGen();
-	//	if (gen % geninterval == 0) {
-	//		this->compute_util();
-	//	}
-	//what else can we do?
 }
 
 void Subproblem::getAvgAdjacentDistance(double& avgdist) {
 	SubproblemItr itr;
 	double totalDistance = 0;
 	for (itr = this->adjacent.begin(); itr != this->adjacent.end(); ++itr) {
-		double d = dist_vector((*itr)->indiv.y_obj, this->indiv.y_obj, nobj);
+		double d = dist_vector((*itr)->indiv->y_obj, this->indiv->y_obj, nobj);
 		totalDistance += d;
 	}
 	avgdist = totalDistance / adjacent.size();
@@ -136,8 +128,8 @@ void Subproblem::getMinAdjacentDistance(SubproblemPtr& minProb, double& min) {
 	min = 10e10;
 	for (itr = this->adjacent.begin(); itr != this->adjacent.end(); ++itr) {
 		if ((*itr)->isLater(*this)) {
-			double d =
-					dist_vector((*itr)->indiv.y_obj, this->indiv.y_obj, nobj);
+			double d = dist_vector((*itr)->indiv->y_obj, this->indiv->y_obj,
+					nobj);
 			if (d < min) {
 				min = d;
 				minProb = (*itr);
@@ -151,8 +143,8 @@ void Subproblem::getMaxAdjacentDistance(SubproblemPtr& maxProb, double& max) {
 	max = -10e10;
 	for (itr = this->adjacent.begin(); itr != this->adjacent.end(); ++itr) {
 		if ((*itr)->isLater(*this)) {
-			double d =
-					dist_vector((*itr)->indiv.y_obj, this->indiv.y_obj, nobj);
+			double d = dist_vector((*itr)->indiv->y_obj, this->indiv->y_obj,
+					nobj);
 			if (d > max) {
 				max = d;
 				maxProb = (*itr);
@@ -162,7 +154,7 @@ void Subproblem::getMaxAdjacentDistance(SubproblemPtr& maxProb, double& max) {
 }
 
 bool Subproblem::dominate(Subproblem& sub) {
-	return dominate_vector(this->indiv.y_obj, sub.indiv.y_obj, nobj);
+	return dominate_vector(this->indiv->y_obj, sub.indiv->y_obj, nobj);
 }
 
 bool Subproblem::isLater(Subproblem& sub) {
@@ -212,11 +204,11 @@ void Subproblem::nondom_select(vector<SubproblemPtr>& nondominate, vector<
 		}
 	}
 
-	assert(collection.size()==nondominate.size()+dom.size());
+	assert(collection.size() == nondominate.size() + dom.size());
 }
 
 //just search on its own, using a DE method. or any other method.
-void Subproblem::searchOnItOwn(int fes){
+void Subproblem::searchOnItOwn(int fes) {
 
 }
 

@@ -30,7 +30,7 @@ void RMOEAD::init_population() {
 	//int pops = population.size();
 
 	for (int i = 0; i < pops; i++) {
-		Subproblem* sub = new Subproblem();
+		SubproblemPtr sub(new Subproblem());
 
 		// Load weight vectors
 		for (unsigned int j = 0; j < nobj; j++) {
@@ -219,7 +219,6 @@ void RMOEAD::weight_adjust_remove(vector<SubproblemPtr> & subproblems) {
 		if (itr != subproblems.end()) {
 			SubproblemPtr ptr = (*itr);
 			subproblems.erase(itr);
-			delete ptr;
 		}
 	}
 
@@ -289,7 +288,7 @@ void RMOEAD::weight_adjust_add(vector<SubproblemPtr> & subproblems) {
 		if (nobj == 2) {
 			insertnumber = fmin(10, insertnumber); //cap it.
 			for (int idx = 1; idx < insertnumber; idx++) {
-				SubproblemPtr sub = new Subproblem();
+				SubproblemPtr sub(new Subproblem());
 				sub->namda[0] = lowerWeight + (idx) * weightspan / insertnumber;
 				sub->namda[1] = 1 - sub->namda[0];
 				toadd.push_back(sub);
@@ -453,7 +452,7 @@ void RMOEAD::find_best(SubproblemPtr cid, SubproblemPtr& best, bool type) {
 	if (type) {//neighbour.
 		for (unsigned int i = 0; i < cid->neighbour.size(); i++) {
 			SubproblemPtr test = cid->neighbour[i];
-			ftest = fitnessfunction(test->indiv.y_obj, cid->namda);
+			ftest = fitnessfunction(test->indiv->y_obj, cid->namda);
 			if (ftest < fbest) {
 				best = test;
 				fbest = ftest;
@@ -462,7 +461,7 @@ void RMOEAD::find_best(SubproblemPtr cid, SubproblemPtr& best, bool type) {
 	} else {//whole population.
 		for (unsigned int i = 0; i < population.size(); i++) {
 			SubproblemPtr test = population[i];
-			ftest = fitnessfunction(test->indiv.y_obj, cid->namda);
+			ftest = fitnessfunction(test->indiv->y_obj, cid->namda);
 			if (ftest < fbest) {
 				best = test;
 				fbest = ftest;
@@ -518,13 +517,13 @@ void RMOEAD::evolve_de(SubproblemPtr c_sub) {
 
 	mate_selection(plist, c_sub, 2, true);
 
-	diff_evo_xover_current2best(c_sub->indiv, bestIndLocal->indiv,
-			plist[0]->indiv, plist[1]->indiv, child, de_f, de_cr);
+	diff_evo_xover_current2best(*(c_sub->indiv), *(bestIndLocal->indiv),
+			*(plist[0]->indiv), *(plist[1]->indiv), child, de_f, de_cr);
 
 	plist.clear();
 
 	mate_selection(plist, c_sub, 2, type_neighbour);
-	diff_evo_xover_1(c_sub->indiv, plist[0]->indiv, plist[1]->indiv, child2,
+	diff_evo_xover_1(*(c_sub->indiv), *(plist[0]->indiv), *(plist[1]->indiv), child2,
 			de_f, de_cr);
 
 	double w = getDEWeight();
@@ -632,9 +631,6 @@ void RMOEAD::exec_emo(int run) {
 		printRunningState();
 	}
 
-	for (unsigned int i = 0; i < population.size(); i++) {
-		delete population[i];
-	}
 	printf("\n");
 
 	//	population.clear();
@@ -671,9 +667,7 @@ void RMOEAD::save_front(std::string& saveFilename) {
 	for (int n = 0; n < pops; n++) {
 		for (unsigned int k = 0; k < nobj; k++) {
 			if (strcmp("de", me) == 0) {
-				fout << population[n]->indiv.y_obj[k] << "  ";
-			} else if (strcmp("pso", me) == 0) {
-				fout << population[n]->gbest.y_obj[k] << "  ";
+				fout << population[n]->indiv->y_obj[k] << "  ";
 			} else
 				assert(false);
 		}
@@ -702,7 +696,7 @@ void RMOEAD::save_pos(std::string& saveFilename) {
 	int pops = this->population.size();
 	for (int n = 0; n < pops; n++) {
 		for (unsigned int k = 0; k < nvar; k++)
-			fout << population[n]->indiv.x_var[k] << "  ";
+			fout << population[n]->indiv->x_var[k] << "  ";
 		fout << "\n";
 	}
 	fout.close();

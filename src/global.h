@@ -24,6 +24,8 @@
 #define QUEUE_SIZE 100
 #endif
 
+#define BUFFER_SIZE 100
+
 using namespace std;
 //------------- Parameters in test instance ------------------
 
@@ -38,8 +40,13 @@ extern std::string input_dir;
 
 //------------- Parameters in MOEA/D -------------------------
 
-extern double idealpoint[100];
-extern double scale[100];
+extern double idealpoint[BUFFER_SIZE];
+extern double scale[BUFFER_SIZE];
+
+extern double temp_buffer_1[BUFFER_SIZE];
+extern double temp_buffer_2[BUFFER_SIZE];
+extern double temp_buffer_3[BUFFER_SIZE];
+extern double temp_buffer_4[BUFFER_SIZE];
 
 extern int etax, etam; // distribution indexes of crossover and mutation
 

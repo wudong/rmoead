@@ -10,7 +10,7 @@ using namespace std;
 
 //------------- Parameters in test instance ------------------
 
-unsigned int     nvar,  nobj;                    //  the number of variables and objectives
+unsigned int     nvar,  nobj;     //  the number of variables and objectives
 
 double  lowBound = 0,   uppBound = 1;   //  lower and upper bounds of variables
 
@@ -19,13 +19,18 @@ char*    strTestInstance;
 std::string    output_dir;
 std::string    input_dir;
 
-
 //------------- Parameters in random number ------------------
 long random_seed;
 
 const gsl_rng_type * rand_T;
 
 gsl_rng * rand_generator;
+
+//------------ some temporary buffer.
+double temp_buffer_1[100];
+double temp_buffer_2[100];
+double temp_buffer_3[100];
+double temp_buffer_4[100];
 
 //------------- Parameters in MOEA/D -------------------------
 

@@ -15,11 +15,23 @@ void minsort(double* x, int* idx, size_t size) {
 	delete[] temp;
 }
 
+double dist_vector(std::vector<double> vec1, std::vector<double> vec2, int dim) {
+	std::copy(vec1.begin(), vec1.end(), temp_buffer_1);
+	std::copy(vec2.begin(), vec2.end(), temp_buffer_2);
+	return dist_vector(temp_buffer_1, temp_buffer_2, dim);
+}
+
 double dist_vector(double* vec1, double* vec2, int dim) {
 	double sum = 0;
 	for (int n = 0; n < dim; n++)
 		sum += (vec1[n] - vec2[n]) * (vec1[n] - vec2[n]);
 	return sqrt(sum);
+}
+
+bool dominate_vector(std::vector<double> u, std::vector<double> v, int dim) {
+	std::copy(u.begin(), u.end(), temp_buffer_1);
+	std::copy(v.begin(), v.end(), temp_buffer_2);
+	return dominate_vector(temp_buffer_1, temp_buffer_2, dim);
 }
 
 bool dominate_vector(double* u, double* v, int dim) {
@@ -28,10 +40,17 @@ bool dominate_vector(double* u, double* v, int dim) {
 	for (int i = 0; i < dim && !a_is_worse; i++) {
 		double fitnessValueA = u[i];
 		double fitnessValueB = v[i];
-		a_is_worse =  (fitnessValueA > fitnessValueB) ;
+		a_is_worse = (fitnessValueA > fitnessValueB);
 		equals = (fitnessValueA == fitnessValueB) && equals;
 	}
 	return (!equals && !a_is_worse);
+}
+
+double fitnessfunction(std::vector<double>& y_obj, std::vector<double>& nambda) {
+	std::copy(y_obj.begin(), y_obj.end(), temp_buffer_1);
+	std::copy(nambda.begin(), nambda.end(), temp_buffer_2);
+	double result = fitnessfunction(temp_buffer_1, temp_buffer_2);
+	return result;
 }
 
 double fitnessfunction(double* y_obj, double* namda) {

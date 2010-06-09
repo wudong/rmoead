@@ -21,15 +21,17 @@ public:
 	Chromosome();
 	virtual ~Chromosome();
 
-	double*  x_var;
-	double* y_obj;
-
+	std::vector<double> x_var;
+	std::vector<double> y_obj;
 	int    rank;
+
+	bool evaluated;
 
 	void   rnd_init();
 	void   obj_eval();
-	void   show_objective();
-	void   show_variable();
+
+	void show_objective();
+	void show_variable();
 
     bool   operator<(const Chromosome &ind2);
 	bool   operator<<(const Chromosome &ind2);

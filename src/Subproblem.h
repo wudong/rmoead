@@ -11,7 +11,6 @@
 #include <boost/smart_ptr.hpp>
 #include "Chromosome.h"
 
-
 class Subproblem;
 typedef boost::shared_ptr<Subproblem> SubproblemPtr;
 typedef vector<SubproblemPtr>::iterator SubproblemItr;
@@ -19,12 +18,14 @@ typedef vector<SubproblemPtr>::iterator SubproblemItr;
 class Subproblem {
 public:
 	Subproblem();
-	virtual ~Subproblem();
+	virtual ~Subproblem(){};
 
-	ChromosomePtr indiv; // best solution
+	ChromosomePtr indiv; // current solution
 	ChromosomePtr saved; // last solution
-	double* namda; // weight vector
-    double* refpoint;// reference point
+	ChromosomePtr lbest; //local best solution
+
+	std::vector<double> namda; // weight vector
+	std::vector<double> refpoint;// reference point
 
 	vector<SubproblemPtr> neighbour; // neighbourhood table
 	vector<SubproblemPtr> adjacent; // neighbourhood table
@@ -34,11 +35,6 @@ public:
 	int selection_times; // how many times the subproblem has been selected.
 	bool isEdge; //whether the subproblem is an edge problem
 	int update_temp; //how many updated are attempted since last update.
-
-	//for particle swarm.
-	//ChromosomePtr gbest;
-	//ChromosomePtr lbest;
-	//double* direction;
 
 	double de_f;
 	double de_cr;
@@ -53,7 +49,7 @@ public:
 
 	double scalarObjective();
 	void postItr(int gen);
-	bool update(ChromosomePtr &indiv, bool updatebest);
+	bool update(Chromosome& indiv, bool updatebest);
 	bool dominate(Subproblem& sub);
 
 	bool isLater(Subproblem& sub);
