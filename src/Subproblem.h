@@ -17,7 +17,7 @@ typedef vector<SubproblemPtr>::iterator SubproblemItr;
 
 class Subproblem {
 public:
-	Subproblem();
+	Subproblem(ChromosomePtr init);
 	virtual ~Subproblem(){};
 
 	ChromosomePtr indiv; // current solution
@@ -49,7 +49,7 @@ public:
 
 	double scalarObjective();
 	void postItr(int gen);
-	bool update(Chromosome& indiv, bool updatebest);
+	bool update(ChromosomePtr indiv, bool updatebest);
 	bool dominate(Subproblem& sub);
 
 	bool isLater(Subproblem& sub);

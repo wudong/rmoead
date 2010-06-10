@@ -29,7 +29,6 @@ void SingleObjEA::evolve(int fes) {
 }
 
 ChromosomePtr SingleObjEA::findBest() {
-
 }
 
 double SingleObjEA::fitness(std::vector<double>& var) {

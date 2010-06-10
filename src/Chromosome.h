@@ -27,6 +27,8 @@ public:
 
 	bool evaluated;
 
+	ChromosomePtr clone();
+
 	void   rnd_init();
 	void   obj_eval();
 

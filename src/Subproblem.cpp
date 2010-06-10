@@ -8,8 +8,9 @@
 
 #include "Subproblem.h"
 
-Subproblem::Subproblem() :
-	indiv(new Chromosome()), saved(new Chromosome()), lbest(new Chromosome()) {
+Subproblem::Subproblem(ChromosomePtr chrom) {
+	indiv = chrom;
+
 	this->de_f = 0.5;
 	this->de_cr = 1;
 	this->update_temp = 0;
@@ -22,11 +23,8 @@ Subproblem::Subproblem() :
 	namda.resize(nobj);
 	refpoint.resize(nobj);
 
-	this->indiv->rnd_init();
-	this->indiv->obj_eval();
-
-	*this->saved = *this->indiv;
-	*this->lbest = *this->indiv;
+	this->saved = chrom->clone();
+	this->lbest = chrom->clone();
 }
 
 void Subproblem::show_weight() {
@@ -49,23 +47,23 @@ void Subproblem::operator=(const Subproblem &sub2) {
 	this->searchSelected = sub2.searchSelected;
 }
 
-bool Subproblem::update(Chromosome &newind, bool updatecurrent) {
+bool Subproblem::update(ChromosomePtr newind, bool updatecurrent) {
 	update_temp++;
 
 	double f1, f2, f0;
 	f0 = fitnessfunction(this->lbest->y_obj, this->namda);
 	f1 = fitnessfunction(this->indiv->y_obj, this->namda);
-	f2 = fitnessfunction(newind.y_obj, this->namda);
+	f2 = fitnessfunction(newind->y_obj, this->namda);
 
 	//update the best always.
 	if (f2 < f0)
-		*this->lbest = newind;
+		this->lbest = newind;
 
 	bool result;
 	if (updatecurrent) {
 		bool updated = f2 < f1;
 		if (updated) {
-			*this->indiv = newind;
+			this->indiv = newind;
 		}
 		result = updated;
 	} else

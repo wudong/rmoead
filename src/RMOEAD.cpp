@@ -13,6 +13,14 @@ RMOEAD::RMOEAD() {
 RMOEAD::~RMOEAD() {
 }
 
+void RMOEAD::setFunction(FunctionPtr ptr) {
+	this->function = ptr;
+}
+
+void RMOEAD::evaluate(ChromosomePtr chrom) {
+	(*this->function)(chrom);
+}
+
 void RMOEAD::init_population() {
 
 	firstime_adjust = true;
@@ -30,7 +38,10 @@ void RMOEAD::init_population() {
 	//int pops = population.size();
 
 	for (int i = 0; i < pops; i++) {
-		SubproblemPtr sub(new Subproblem());
+		ChromosomePtr ch(new Chromosome());
+		evaluate(ch);
+
+		SubproblemPtr sub(new Subproblem(ch));
 
 		// Load weight vectors
 		for (unsigned int j = 0; j < nobj; j++) {
@@ -168,10 +179,10 @@ void RMOEAD::weight_adjust_remove(vector<SubproblemPtr> & subproblems) {
 
 		subproblem->getMinAdjacentDistance(another, smallest);
 
-//		int columnwidth = 15;
-//		std::cout << "Check:" << setw(columnwidth) << subproblem->utility
-//				<< setw(columnwidth) << another->utility << setw(columnwidth)
-//				<< smallest;
+		//		int columnwidth = 15;
+		//		std::cout << "Check:" << setw(columnwidth) << subproblem->utility
+		//				<< setw(columnwidth) << another->utility << setw(columnwidth)
+		//				<< smallest;
 
 		if (smallest > 0.3 * averageAdjacentDistance)
 			break;
@@ -270,7 +281,7 @@ void RMOEAD::weight_adjust_add(vector<SubproblemPtr> & subproblems) {
 
 		std::cout << "Check:" << setw(columnwidth) << subproblem->utility
 				<< setw(columnwidth) << another->utility << setw(columnwidth)
-				<< largest <<std::endl;
+				<< largest << std::endl;
 
 		//		if (subproblem->utility == 1 || another->utility == 1) {
 		//			std::cout << " :pass." << std::endl;
@@ -288,7 +299,10 @@ void RMOEAD::weight_adjust_add(vector<SubproblemPtr> & subproblems) {
 		if (nobj == 2) {
 			insertnumber = fmin(10, insertnumber); //cap it.
 			for (int idx = 1; idx < insertnumber; idx++) {
-				SubproblemPtr sub(new Subproblem());
+				ChromosomePtr ptr(new Chromosome());
+				evaluate(ptr);
+				SubproblemPtr sub(new Subproblem(ptr));
+
 				sub->namda[0] = lowerWeight + (idx) * weightspan / insertnumber;
 				sub->namda[1] = 1 - sub->namda[0];
 				toadd.push_back(sub);
@@ -400,7 +414,7 @@ void RMOEAD::sort_selection(vector<SubproblemPtr> &selected) {
 	delete[] idx;
 }
 
-void RMOEAD::update_problem_de(Chromosome &indiv, SubproblemPtr id, bool type) {
+void RMOEAD::update_problem_de(ChromosomePtr indiv, SubproblemPtr id, bool type) {
 	// indiv: child solution
 	// id:   the id of current subproblem
 	// type: update solutions in - neighborhood (1) or whole population (otherwise)
@@ -506,7 +520,7 @@ void RMOEAD::evolve_de(SubproblemPtr c_sub) {
 	double prob = getUpdateNeighbourProb();
 	bool type_neighbour = (rnd < prob);
 
-	Chromosome child, child2;
+	ChromosomePtr child(new Chromosome()), child2(new Chromosome());
 	double de_f = 0.5;
 	double de_cr = 1;
 	vector<SubproblemPtr> plist;
@@ -517,14 +531,14 @@ void RMOEAD::evolve_de(SubproblemPtr c_sub) {
 
 	mate_selection(plist, c_sub, 2, true);
 
-	diff_evo_xover_current2best(*(c_sub->indiv), *(bestIndLocal->indiv),
-			*(plist[0]->indiv), *(plist[1]->indiv), child, de_f, de_cr);
+	diff_evo_xover_current2best((c_sub->indiv), (bestIndLocal->indiv),
+			(plist[0]->indiv), (plist[1]->indiv), child, de_f, de_cr);
 
 	plist.clear();
 
 	mate_selection(plist, c_sub, 2, type_neighbour);
-	diff_evo_xover_1(*(c_sub->indiv), *(plist[0]->indiv), *(plist[1]->indiv), child2,
-			de_f, de_cr);
+	diff_evo_xover_1((c_sub->indiv), (plist[0]->indiv), (plist[1]->indiv),
+			child2, de_f, de_cr);
 
 	double w = getDEWeight();
 	if (w < 1) {
@@ -532,13 +546,15 @@ void RMOEAD::evolve_de(SubproblemPtr c_sub) {
 	}
 
 	for (unsigned int idx = 0; idx < nvar; idx++) {
-		child.x_var[idx] = (1 - w) * child.x_var[idx] + w * child2.x_var[idx];
+		child->x_var[idx] = (1 - w) * child->x_var[idx] + w
+				* child2->x_var[idx];
 	}
 
 	float f = getMutationRate();
 	realmutation(child, f / nvar);
 
-	child.obj_eval();
+	//child->obj_eval();
+	evaluate(child);
 
 	//population[c_sub]->update_pop(child, type_neighbour, population);
 	update_problem_de(child, c_sub, type_neighbour);

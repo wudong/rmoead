@@ -7,13 +7,23 @@
 
 #ifndef FUNCTION_H_
 #define FUNCTION_H_
+#include "Chromosome.h"
 
 class Function {
 public:
 	Function();
-	virtual ~Function(){};
+	virtual ~Function();
 
-	virtual void operator() (double *var, double *obj);
+	void operator() (double *var, double *obj);
+	void operator() (ChromosomePtr chrom);
+
+	virtual void evaluate(double* var, double* obj){};
+
+private:
+	double TEMP_X[100];
+	double TEMP_Y[100];
 };
+
+typedef boost::shared_ptr<Function> FunctionPtr;
 
 #endif /* FUNCTION_H_ */

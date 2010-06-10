@@ -111,6 +111,30 @@ rmoead/fast:
 	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/build
 .PHONY : rmoead/fast
 
+Cec09Function.o: Cec09Function.cpp.o
+.PHONY : Cec09Function.o
+
+# target to build an object file
+Cec09Function.cpp.o:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Cec09Function.cpp.o
+.PHONY : Cec09Function.cpp.o
+
+Cec09Function.i: Cec09Function.cpp.i
+.PHONY : Cec09Function.i
+
+# target to preprocess a source file
+Cec09Function.cpp.i:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Cec09Function.cpp.i
+.PHONY : Cec09Function.cpp.i
+
+Cec09Function.s: Cec09Function.cpp.s
+.PHONY : Cec09Function.s
+
+# target to generate assembly for a file
+Cec09Function.cpp.s:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Cec09Function.cpp.s
+.PHONY : Cec09Function.cpp.s
+
 Chromosome.o: Chromosome.cpp.o
 .PHONY : Chromosome.o
 
@@ -134,6 +158,30 @@ Chromosome.s: Chromosome.cpp.s
 Chromosome.cpp.s:
 	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Chromosome.cpp.s
 .PHONY : Chromosome.cpp.s
+
+Function.o: Function.cpp.o
+.PHONY : Function.o
+
+# target to build an object file
+Function.cpp.o:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Function.cpp.o
+.PHONY : Function.cpp.o
+
+Function.i: Function.cpp.i
+.PHONY : Function.i
+
+# target to preprocess a source file
+Function.cpp.i:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Function.cpp.i
+.PHONY : Function.cpp.i
+
+Function.s: Function.cpp.s
+.PHONY : Function.s
+
+# target to generate assembly for a file
+Function.cpp.s:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Function.cpp.s
+.PHONY : Function.cpp.s
 
 RMOEAD.o: RMOEAD.cpp.o
 .PHONY : RMOEAD.o
@@ -384,9 +432,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... rmoead"
+	@echo "... Cec09Function.o"
+	@echo "... Cec09Function.i"
+	@echo "... Cec09Function.s"
 	@echo "... Chromosome.o"
 	@echo "... Chromosome.i"
 	@echo "... Chromosome.s"
+	@echo "... Function.o"
+	@echo "... Function.i"
+	@echo "... Function.s"
 	@echo "... RMOEAD.o"
 	@echo "... RMOEAD.i"
 	@echo "... RMOEAD.s"

@@ -13,6 +13,7 @@
 #include "common.h"
 #include "Chromosome.h"
 #include "Subproblem.h"
+#include "Function.h"
 #include <stdlib.h>
 
 class RMOEAD {
@@ -23,6 +24,8 @@ public:
 
 	void init_population();
 	void exec_emo(int run);
+
+	void setFunction(FunctionPtr ptr);
 
 	void save_front(std::string & savefilename);
 	void save_pos(std::string & savefilename);
@@ -35,21 +38,29 @@ private:
 	void order_selection(vector<SubproblemPtr> & selected);
 	void sort_selection(vector<SubproblemPtr> & selected);
 	void tour_selection(vector<SubproblemPtr> & selected);
+
 	void evol_population();
+
 	void build_neighbourhood(vector<SubproblemPtr> & pop);
 	void build_adjacent(vector<SubproblemPtr> & pop);
 
 	void weight_adjust_remove(vector<SubproblemPtr> & pop);
 	void weight_adjust_add(vector<SubproblemPtr> & pop);
-	void mate_selection(vector<SubproblemPtr> & list, SubproblemPtr cid, unsigned int size, bool type);
+	void mate_selection(vector<SubproblemPtr> & list, SubproblemPtr cid,
+			unsigned int size, bool type);
 	void evolve_de(SubproblemPtr c_sub);
-	void update_problem_de(Chromosome& ind, SubproblemPtr id, bool type);
+	void update_problem_de(ChromosomePtr ind, SubproblemPtr id, bool type);
 	void save_selection(std::string & filename);
 	void find_best(SubproblemPtr cid, SubproblemPtr& best, bool type);
 
-	void save_state(int run, int& save_front_counter, int& save_selection_counter);
+	void save_state(int run, int& save_front_counter,
+			int& save_selection_counter);
 	void printRunningState();
 	void weight_adjust(int& counter);
+
+	void evaluate(ChromosomePtr ind);
+
 	bool firstime_adjust;
+	FunctionPtr function;
 };
 #endif /* RMOEAD_H_ */
