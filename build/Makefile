@@ -36,13 +36,13 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wudong/rmoead/src
+CMAKE_SOURCE_DIR = /home/wudong/git/rmoead/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wudong/rmoead/build
+CMAKE_BINARY_DIR = /home/wudong/git/rmoead/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -50,7 +50,7 @@ CMAKE_BINARY_DIR = /home/wudong/rmoead/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -69,9 +69,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wudong/rmoead/build/CMakeFiles /home/wudong/rmoead/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wudong/git/rmoead/build/CMakeFiles /home/wudong/git/rmoead/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wudong/rmoead/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wudong/git/rmoead/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -135,30 +135,6 @@ Chromosome.cpp.s:
 	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Chromosome.cpp.s
 .PHONY : Chromosome.cpp.s
 
-Population.o: Population.cpp.o
-.PHONY : Population.o
-
-# target to build an object file
-Population.cpp.o:
-	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Population.cpp.o
-.PHONY : Population.cpp.o
-
-Population.i: Population.cpp.i
-.PHONY : Population.i
-
-# target to preprocess a source file
-Population.cpp.i:
-	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Population.cpp.i
-.PHONY : Population.cpp.i
-
-Population.s: Population.cpp.s
-.PHONY : Population.s
-
-# target to generate assembly for a file
-Population.cpp.s:
-	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Population.cpp.s
-.PHONY : Population.cpp.s
-
 RMOEAD.o: RMOEAD.cpp.o
 .PHONY : RMOEAD.o
 
@@ -182,6 +158,30 @@ RMOEAD.s: RMOEAD.cpp.s
 RMOEAD.cpp.s:
 	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/RMOEAD.cpp.s
 .PHONY : RMOEAD.cpp.s
+
+SingleObjEA.o: SingleObjEA.cpp.o
+.PHONY : SingleObjEA.o
+
+# target to build an object file
+SingleObjEA.cpp.o:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/SingleObjEA.cpp.o
+.PHONY : SingleObjEA.cpp.o
+
+SingleObjEA.i: SingleObjEA.cpp.i
+.PHONY : SingleObjEA.i
+
+# target to preprocess a source file
+SingleObjEA.cpp.i:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/SingleObjEA.cpp.i
+.PHONY : SingleObjEA.cpp.i
+
+SingleObjEA.s: SingleObjEA.cpp.s
+.PHONY : SingleObjEA.s
+
+# target to generate assembly for a file
+SingleObjEA.cpp.s:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/SingleObjEA.cpp.s
+.PHONY : SingleObjEA.cpp.s
 
 Subproblem.o: Subproblem.cpp.o
 .PHONY : Subproblem.o
@@ -387,12 +387,12 @@ help:
 	@echo "... Chromosome.o"
 	@echo "... Chromosome.i"
 	@echo "... Chromosome.s"
-	@echo "... Population.o"
-	@echo "... Population.i"
-	@echo "... Population.s"
 	@echo "... RMOEAD.o"
 	@echo "... RMOEAD.i"
 	@echo "... RMOEAD.s"
+	@echo "... SingleObjEA.o"
+	@echo "... SingleObjEA.i"
+	@echo "... SingleObjEA.s"
 	@echo "... Subproblem.o"
 	@echo "... Subproblem.i"
 	@echo "... Subproblem.s"
