@@ -9,6 +9,7 @@
 #define RMOEAD_H_
 
 #include "global.h"
+#include "EvolutionaryAlgorithm.h"
 #include "recomb.h"
 #include "common.h"
 #include "Chromosome.h"
@@ -16,25 +17,19 @@
 #include "Function.h"
 #include <stdlib.h>
 
-class RMOEAD {
+class RMOEAD: public EvolutionaryAlgorithm<SubproblemPtr> {
 
 public:
-	RMOEAD();
-	virtual ~RMOEAD();
+	RMOEAD(){};
+	virtual ~RMOEAD(){};
 
-	void init_population();
-	void exec_emo(int run);
-
-	void setFunction(FunctionPtr ptr);
+	void evolve();
 
 	void save_front(std::string & savefilename);
 	void save_pos(std::string & savefilename);
-
-public:
-	vector<SubproblemPtr> population;
+	void initPop();
 
 private:
-
 	void order_selection(vector<SubproblemPtr> & selected);
 	void sort_selection(vector<SubproblemPtr> & selected);
 	void tour_selection(vector<SubproblemPtr> & selected);
@@ -58,9 +53,6 @@ private:
 	void printRunningState();
 	void weight_adjust(int& counter);
 
-	void evaluate(ChromosomePtr ind);
-
 	bool firstime_adjust;
-	FunctionPtr function;
 };
 #endif /* RMOEAD_H_ */

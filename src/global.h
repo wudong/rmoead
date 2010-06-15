@@ -33,7 +33,7 @@ extern unsigned int nvar, nobj; //  the number of variables and objectives
 
 extern double lowBound, uppBound; //  lower and upper bounds of variables
 
-extern char* strTestInstance;
+//extern char* strTestInstance;
 
 extern std::string output_dir;
 extern std::string input_dir;

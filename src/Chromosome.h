@@ -9,7 +9,6 @@
 #define CHROMOSOME_H_
 
 #include "global.h"
-#include "problem.h"
 #include "common.h"
 #include <boost/smart_ptr.hpp>
 
@@ -30,7 +29,6 @@ public:
 	ChromosomePtr clone();
 
 	void   rnd_init();
-	void   obj_eval();
 
 	void show_objective();
 	void show_variable();

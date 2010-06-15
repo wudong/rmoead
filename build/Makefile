@@ -36,7 +36,7 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+CMAKE_EDIT_COMMAND = /usr/bin/cmake-gui
 
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/wudong/git/rmoead/src
@@ -50,7 +50,7 @@ CMAKE_BINARY_DIR = /home/wudong/git/rmoead/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -158,6 +158,30 @@ Chromosome.s: Chromosome.cpp.s
 Chromosome.cpp.s:
 	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Chromosome.cpp.s
 .PHONY : Chromosome.cpp.s
+
+EvolutionaryAlgorithm.o: EvolutionaryAlgorithm.cpp.o
+.PHONY : EvolutionaryAlgorithm.o
+
+# target to build an object file
+EvolutionaryAlgorithm.cpp.o:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/EvolutionaryAlgorithm.cpp.o
+.PHONY : EvolutionaryAlgorithm.cpp.o
+
+EvolutionaryAlgorithm.i: EvolutionaryAlgorithm.cpp.i
+.PHONY : EvolutionaryAlgorithm.i
+
+# target to preprocess a source file
+EvolutionaryAlgorithm.cpp.i:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/EvolutionaryAlgorithm.cpp.i
+.PHONY : EvolutionaryAlgorithm.cpp.i
+
+EvolutionaryAlgorithm.s: EvolutionaryAlgorithm.cpp.s
+.PHONY : EvolutionaryAlgorithm.s
+
+# target to generate assembly for a file
+EvolutionaryAlgorithm.cpp.s:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/EvolutionaryAlgorithm.cpp.s
+.PHONY : EvolutionaryAlgorithm.cpp.s
 
 Function.o: Function.cpp.o
 .PHONY : Function.o
@@ -375,30 +399,6 @@ moea.cpp.s:
 	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/moea.cpp.s
 .PHONY : moea.cpp.s
 
-problem.o: problem.cpp.o
-.PHONY : problem.o
-
-# target to build an object file
-problem.cpp.o:
-	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/problem.cpp.o
-.PHONY : problem.cpp.o
-
-problem.i: problem.cpp.i
-.PHONY : problem.i
-
-# target to preprocess a source file
-problem.cpp.i:
-	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/problem.cpp.i
-.PHONY : problem.cpp.i
-
-problem.s: problem.cpp.s
-.PHONY : problem.s
-
-# target to generate assembly for a file
-problem.cpp.s:
-	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/problem.cpp.s
-.PHONY : problem.cpp.s
-
 recomb.o: recomb.cpp.o
 .PHONY : recomb.o
 
@@ -438,6 +438,9 @@ help:
 	@echo "... Chromosome.o"
 	@echo "... Chromosome.i"
 	@echo "... Chromosome.s"
+	@echo "... EvolutionaryAlgorithm.o"
+	@echo "... EvolutionaryAlgorithm.i"
+	@echo "... EvolutionaryAlgorithm.s"
 	@echo "... Function.o"
 	@echo "... Function.i"
 	@echo "... Function.s"
@@ -465,9 +468,6 @@ help:
 	@echo "... moea.o"
 	@echo "... moea.i"
 	@echo "... moea.s"
-	@echo "... problem.o"
-	@echo "... problem.i"
-	@echo "... problem.s"
 	@echo "... recomb.o"
 	@echo "... recomb.i"
 	@echo "... recomb.s"

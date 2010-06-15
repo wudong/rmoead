@@ -12,19 +12,19 @@ namespace CEC09
 	{
 		unsigned int j, count1, count2;
 		double sum1, sum2, yj;
-		
+
 		sum1   = sum2   = 0.0;
 		count1 = count2 = 0;
-		for(j = 2; j <= nx; j++) 
+		for(j = 2; j <= nx; j++)
 		{
 			yj = x[j-1] - sin(6.0*PI*x[0] + j*PI/nx);
 			yj = yj * yj;
-			if(j % 2 == 0) 
+			if(j % 2 == 0)
 			{
 				sum2 += yj;
 				count2++;
-			} 
-			else 
+			}
+			else
 			{
 				sum1 += yj;
 				count1++;
@@ -38,18 +38,18 @@ namespace CEC09
 	{
 		unsigned int j, count1, count2;
 		double sum1, sum2, yj;
-		
+
 		sum1   = sum2   = 0.0;
 		count1 = count2 = 0;
-		for(j = 2; j <= nx; j++) 
+		for(j = 2; j <= nx; j++)
 		{
-			if(j % 2 == 0) 
+			if(j % 2 == 0)
 			{
 				yj = x[j-1]-0.3*x[0]*(x[0]*cos(4.0*(6.0*PI*x[0]+j*PI/nx))+2.0)*cos(6.0*PI*x[0]+j*PI/nx);
 				sum2 += yj*yj;
 				count2++;
-			} 
-			else 
+			}
+			else
 			{
 				yj = x[j-1]-0.3*x[0]*(x[0]*cos(4.0*(6.0*PI*x[0]+j*PI/nx))+2.0)*sin(6.0*PI*x[0]+j*PI/nx);
 				sum1 += yj*yj;
@@ -64,21 +64,21 @@ namespace CEC09
 	{
 		unsigned int j, count1, count2;
 		double sum1, sum2, prod1, prod2, yj, pj;
-		
+
 		sum1   = sum2   = 0.0;
 		count1 = count2 = 0;
 		prod1  = prod2  = 1.0;
-		for(j = 2; j <= nx; j++) 
+		for(j = 2; j <= nx; j++)
 		{
 			yj = x[j-1]-pow(x[0],0.5*(1.0+3.0*(j-2.0)/(nx-2.0)));
 			pj = cos(20.0*yj*PI/sqrt(j+0.0));
-			if (j % 2 == 0) 
+			if (j % 2 == 0)
 			{
 				sum2  += yj*yj;
 				prod2 *= pj;
 				count2++;
-			} 
-			else 
+			}
+			else
 			{
 				sum1  += yj*yj;
 				prod1 *= pj;
@@ -93,19 +93,19 @@ namespace CEC09
 	{
 		unsigned int j, count1, count2;
 		double sum1, sum2, yj, hj;
-		
+
 		sum1   = sum2   = 0.0;
 		count1 = count2 = 0;
-		for(j = 2; j <= nx; j++) 
+		for(j = 2; j <= nx; j++)
 		{
 			yj = x[j-1]-sin(6.0*PI*x[0]+j*PI/nx);
 			hj = fabs(yj)/(1.0+exp(2.0*fabs(yj)));
-			if (j % 2 == 0) 
+			if (j % 2 == 0)
 			{
 				sum2  += hj;
 				count2++;
-			} 
-			else 
+			}
+			else
 			{
 				sum1  += hj;
 				count1++;
@@ -119,20 +119,20 @@ namespace CEC09
 	{
 		unsigned int j, count1, count2;
 		double sum1, sum2, yj, hj, N, E;
-		
+
 		sum1   = sum2   = 0.0;
 		count1 = count2 = 0;
 		N = 10.0; E = 0.1;
-		for(j = 2; j <= nx; j++) 
+		for(j = 2; j <= nx; j++)
 		{
 			yj = x[j-1] - sin(6.0*PI*x[0]);
 			hj = 2.0*yj*yj - cos(4.0*PI*yj) + 1.0;
-			if (j % 2 == 0) 
+			if (j % 2 == 0)
 			{
 				sum2  += hj;
 				count2++;
-			} 
-			else 
+			}
+			else
 			{
 				sum1  += hj;
 				count1++;
@@ -177,19 +177,19 @@ namespace CEC09
 	{
 		unsigned int j, count1, count2;
 		double sum1, sum2, yj, hj, N, E;
-		
+
 		sum1   = sum2   = 0.0;
 		count1 = count2 = 0;
 		N = 2.0; E = 0.1;
-		for(j = 2; j <= nx; j++) 
+		for(j = 2; j <= nx; j++)
 		{
 			yj = x[j-1] - sin(6.0*PI*x[0]+j*PI/nx);
-			if (j % 2 == 0) 
+			if (j % 2 == 0)
 			{
 				sum2  += yj*yj;
 				count2++;
-			} 
-			else 
+			}
+			else
 			{
 				sum1  += yj*yj;
 				count1++;
@@ -205,18 +205,18 @@ namespace CEC09
 	{
 		unsigned int j, count1, count2;
 		double sum1, sum2, yj;
-		
+
 		sum1   = sum2   = 0.0;
 		count1 = count2 = 0;
-		for(j = 2; j <= nx; j++) 
+		for(j = 2; j <= nx; j++)
 		{
 			yj = x[j-1] - sin(6.0*PI*x[0]+j*PI/nx);
-			if (j % 2 == 0) 
+			if (j % 2 == 0)
 			{
 				sum2  += yj*yj;
 				count2++;
-			} 
-			else 
+			}
+			else
 			{
 				sum1  += yj*yj;
 				count1++;
@@ -231,18 +231,18 @@ namespace CEC09
 	{
 		unsigned int j, count1, count2, count3;
 		double sum1, sum2, sum3, yj;
-		
+
 		sum1   = sum2   = sum3   = 0.0;
 		count1 = count2 = count3 = 0;
-		for(j = 3; j <= nx; j++) 
+		for(j = 3; j <= nx; j++)
 		{
 			yj = x[j-1] - 2.0*x[1]*sin(2.0*PI*x[0]+j*PI/nx);
-			if(j % 3 == 1) 
+			if(j % 3 == 1)
 			{
 				sum1  += yj*yj;
 				count1++;
-			} 
-			else if(j % 3 == 2) 
+			}
+			else if(j % 3 == 2)
 			{
 				sum2  += yj*yj;
 				count2++;
@@ -262,19 +262,19 @@ namespace CEC09
 	{
 		unsigned int j, count1, count2, count3;
 		double sum1, sum2, sum3, yj, E;
-		
+
 		E = 0.1;
 		sum1   = sum2   = sum3   = 0.0;
 		count1 = count2 = count3 = 0;
-		for(j = 3; j <= nx; j++) 
+		for(j = 3; j <= nx; j++)
 		{
 			yj = x[j-1] - 2.0*x[1]*sin(2.0*PI*x[0]+j*PI/nx);
-			if(j % 3 == 1) 
+			if(j % 3 == 1)
 			{
 				sum1  += yj*yj;
 				count1++;
-			} 
-			else if(j % 3 == 2) 
+			}
+			else if(j % 3 == 2)
 			{
 				sum2  += yj*yj;
 				count2++;
@@ -296,19 +296,19 @@ namespace CEC09
 	{
 		unsigned int j, count1, count2, count3;
 		double sum1, sum2, sum3, yj, hj;
-		
+
 		sum1   = sum2   = sum3   = 0.0;
 		count1 = count2 = count3 = 0;
-		for(j = 3; j <= nx; j++) 
+		for(j = 3; j <= nx; j++)
 		{
 			yj = x[j-1] - 2.0*x[1]*sin(2.0*PI*x[0]+j*PI/nx);
 			hj = 4.0*yj*yj - cos(8.0*PI*yj) + 1.0;
-			if(j % 3 == 1) 
+			if(j % 3 == 1)
 			{
 				sum1  += hj;
 				count1++;
-			} 
-			else if(j % 3 == 2) 
+			}
+			else if(j % 3 == 2)
 			{
 				sum2  += hj;
 				count2++;
@@ -336,8 +336,8 @@ namespace CEC09
 	#define b1 (b/2)
 
 	void R2_DTLZ2_M5(double *x, double *f, const unsigned int nx, const unsigned int n_obj)
-	{	
-		int i=0,j=0;    
+	{
+		int i=0,j=0;
 		int k = nx - n_obj + 1;
 		double g = 0;
 		double sum = 0;
@@ -345,7 +345,7 @@ namespace CEC09
 		double *z, *zz, *p, *psum, **M, *lamda_l;
 		double M_10D[10][10]={{0.0346, -0.7523, 0.3561, -0.2958, 0.4675,0,0,0,0,0},{0.8159, -0.0423, 0.4063, 0.3455, -0.2192,0,0,0,0,0},{-0.3499, 0.3421, 0.8227, -0.2190, -0.1889,0,0,0,0,0},{-0.0963, -0.4747, -0.0998, -0.2429, -0.8345,0,0,0,0,0},{-0.4487, -0.2998, 0.1460, 0.8283, -0.0363,0,0,0,0,0},{0,0,0,0,0,1,0,0,0,0},{0,0,0,0,0,0,1,0,0,0},{0,0,0,0,0,0,0,1,0,0},{0,0,0,0,0,0,0,0,1,0},{0,0,0,0,0,0,0,0,0,1}};
 		double lamda_l_10D[10]={0.313,0.312,0.321,0.316,0.456,1,1,1,1,1};
-		
+
 		double M_30D[30][30]={{0.0128,0.2165,0.4374,-0.0800,0.0886,-0.2015,0.1071,0.2886,0.2354,0.2785,-0.1748,0.2147,0.1649,-0.3043,0.5316,0,0,0,0,0,0,0,0,0,0,0,0,0,0.000,0.000},
 		{0.4813,   0.2420,    -0.3663,   -0.0420,   -0.0088,   -0.4945,   -0.3073, 0.1990, 0.0441, -0.0627, 0.0191, 0.3880, -0.0618, -0.0319, -0.1833,0,0,0,0,0,0,0,0,0,0,0,0,0,0.000,0.000},
 		{0.4816,   -0.2254,    0.0663,    0.4801,    0.2009,   -0.0008,   -0.1501,    0.0269,   -0.2037,0.4334,   -0.2157,   -0.3175,   -0.0923,    0.1451,    0.1118,0,0,0,0,0,0,0,0,0,0,0,0,0,0.000,0.000},
@@ -376,67 +376,67 @@ namespace CEC09
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}};
-		
+
 	    double lamda_l_30D[30]={0.113,0.105,0.117,0.119,0.108,0.110,0.101,0.107,0.111,0.109,0.120,0.108,0.101,0.105,0.116,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000};
-		
+
 		z       = new double[nx];
 		zz      = new double[nx];
 		p       = new double[nx];
 		psum    = new double[n_obj];
 		M       = new double*[nx]; for(i=0; i<nx; i++) M[i] = new double[nx];
 		lamda_l = new double[nx];
-		
+
 		if (nx==10)
 		{
 			for (i=0;i<nx;i++)
 			{
 				for (j=0;j<nx;j++)
 				{
-					M[i][j]=M_10D[i][j];	
+					M[i][j]=M_10D[i][j];
 				}
 				lamda_l[i]=lamda_l_10D[i];
 			}
 		}
-		else 
+		else
 		{
 			for (i=0;i<nx;i++)
 			{
 				for (j=0;j<nx;j++)
 				{
-					M[i][j]=M_30D[i][j];	
+					M[i][j]=M_30D[i][j];
 				}
 				lamda_l[i]=lamda_l_30D[i];
 			}
 		}
-		
+
 		for (i=0;i<nx;i++)
 		{
 			z[i]=0;
 			for (j=0;j<nx;j++)
 			{
 				z[i]+=M[i][j]*x[j];
-			}		
+			}
 			if (z[i]>=0 && z[i]<=1)
 			{
 				zz[i]=z[i];
 				p[i]=0;
 			}
 			else if (z[i]<0)
-			{			
-				zz[i]=-lamda_l[i] * z[i];	
+			{
+				zz[i]=-lamda_l[i] * z[i];
 				p[i]=-z[i];
 			}
 			else
 			{
 				zz[i]=1-lamda_l[i]*(z[i]-1);
-				p[i]=z[i]-1;		
+				p[i]=z[i]-1;
 			}
-		}	
+		}
 		for(j=0;j<n_obj;j++)
 		{
 			psum[j] = 0;
 		}
-		
+
 		for (i = nx - k + 1; i <= nx; i++)
 		{
 			g += pow(zz[i-1]-0.5,2);
@@ -445,7 +445,7 @@ namespace CEC09
 				psum[j]= sqrt( pow(psum[j],2) + pow(p[i-1],2) );
 			}
 		}
-		
+
 		for (i = 1; i <= n_obj; i++)
 		{
 			double ff = (1 + g);
@@ -459,7 +459,7 @@ namespace CEC09
 				ff *= sin(zz[(n_obj - i + 1) - 1] * PI / 2.0);
 				psum[i-1] = sqrt( pow(psum[i-1],2) + pow(p[(n_obj - i + 1) - 1],2) );
 			}
-			
+
 			f[i-1] = 2.0/(1+exp(-psum[i-1])) * (ff+1);
 		}
 
@@ -468,8 +468,8 @@ namespace CEC09
 	}
 
 	void R2_DTLZ3_M5(double *x, double *f, const unsigned int nx, const unsigned int n_obj)
-	{	
-		int i=0,j=0;    
+	{
+		int i=0,j=0;
 		int k = nx - n_obj + 1;
 		double g = 0;
 		double sum = 0;
@@ -478,7 +478,7 @@ namespace CEC09
 
 		double M_10D[10][10]={{-0.2861,    0.2796,   -0.8507,    0.2837,    0.1893,0,0,0,0,0},{0.2837,    0.8861,    0.1219,   -0.3157,    0.1407,0,0,0,0,0},{0.6028,    0.1119,   -0.0810,    0.5963,   -0.5119,0,0,0,0,0},{-0.6450,    0.3465,    0.4447,    0.4753,   -0.2005,0,0,0,0,0},{0.2414,   -0.0635,    0.2391,    0.4883,    0.8013,0,0,0,0,0},{0,0,0,0,0,1,0,0,0,0},{0,0,0,0,0,0,1,0,0,0},{0,0,0,0,0,0,0,1,0,0},{0,0,0,0,0,0,0,0,1,0},{0,0,0,0,0,0,0,0,0,1}};
 		double lamda_l_10D[10]={0.313,0.312,0.321,0.316,0.456,1,1,1,1,1};
-		
+
 		double M_30D[30][30]={{-0.1565,   -0.2418,    0.5427,   -0.2191,    0.2522,   -0.0563,    0.1991,    0.1166,    0.2140,-0.0973,   -0.0755,    0.4073,    0.4279,   -0.1876,   -0.0968,0,0,0,0,0,0,0,0,0,0,0,0,0,0.000,0.000},
 		{0.1477,   -0.2396,   -0.0022,    0.4180,    0.2675,   -0.1365,   -0.0729,    0.4761,   -0.0685,0.2105,    0.1388,    0.1465,   -0.0256,    0.0292,    0.5767,0,0,0,0,0,0,0,0,0,0,0,0,0,0.000,0.000},
 		{0.0322,    0.3727,   -0.0467,    0.1651,   -0.0672,    0.0638,   -0.1168,    0.4055,    0.6714,-0.1948,   -0.1451,    0.1734,   -0.2788,   -0.0769,   -0.1433,0,0,0,0,0,0,0,0,0,0,0,0,0,0.000,0.000},
@@ -509,67 +509,67 @@ namespace CEC09
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1}};
-		
+
 	    double lamda_l_30D[30]={0.113,0.105,0.117,0.119,0.108,0.110,0.101,0.107,0.111,0.109,0.120,0.108,0.101,0.105,0.116,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000,1.000};
-		
+
 		z       = new double[nx];
 		zz      = new double[nx];
 		p       = new double[nx];
 		psum    = new double[n_obj];
 		M       = new double*[nx]; for(i=0; i<nx; i++) M[i] = new double[nx];
 		lamda_l = new double[nx];
-			 
+
 		if (nx==10)
 		{
 			for (i=0;i<nx;i++)
 			{
 				for (j=0;j<nx;j++)
 				{
-					M[i][j]=M_10D[i][j];	
+					M[i][j]=M_10D[i][j];
 				}
 				lamda_l[i]=lamda_l_10D[i];
 			}
 		}
-		else 
+		else
 		{
 			for (i=0;i<nx;i++)
 			{
 				for (j=0;j<nx;j++)
 				{
-					M[i][j]=M_30D[i][j];	
+					M[i][j]=M_30D[i][j];
 				}
 				lamda_l[i]=lamda_l_30D[i];
 			}
 		}
-		
+
 		for (i=0;i<nx;i++)
 		{
 			z[i]=0;
 			for (j=0;j<nx;j++)
 			{
 				z[i]+=M[i][j]*x[j];
-			}		
+			}
 			if (z[i]>=0 && z[i]<=1)
 			{
 				zz[i]=z[i];
 				p[i]=0;
 			}
 			else if (z[i]<0)
-			{			
-				zz[i]=-lamda_l[i] * z[i];	
+			{
+				zz[i]=-lamda_l[i] * z[i];
 				p[i]=-z[i];
 			}
 			else
 			{
 				zz[i]=1-lamda_l[i]*(z[i]-1);
-				p[i]=z[i]-1;		
+				p[i]=z[i]-1;
 			}
-		}	
+		}
 		for(j=0;j<n_obj;j++)
 		{
 			psum[j] = 0;
 		}
-		
+
 		for (i = nx - k + 1; i <= nx; i++)
 		{
 			g += pow(zz[i-1]-0.5,2) - cos(20 * PI * (zz[i-1]-0.5));
@@ -592,7 +592,7 @@ namespace CEC09
 				ff *= sin(zz[(n_obj - i + 1) - 1] * PI / 2.0);
 				psum[i-1] = sqrt( pow(psum[i-1],2) + pow(p[(n_obj - i + 1) - 1],2) );
 			}
-			
+
 			f[i-1] = 2.0/(1+exp(-psum[i-1])) * (ff+1);
 		}
 
@@ -605,11 +605,11 @@ namespace CEC09
 	#define EPSILON (1.0e-10)
 
 	double correct_to_01(double aa, double epsilon)
-	{		
-		double min = 0.0, max = 1.0;	
+	{
+		double min = 0.0, max = 1.0;
 	    double min_epsilon = min - epsilon;
 		double max_epsilon = max + epsilon;
-		
+
 		if ( aa <= min && aa >= min_epsilon )
 		{
 			return min;
@@ -621,54 +621,54 @@ namespace CEC09
 		else
 		{
 			return aa;
-		}	
+		}
 	}
 
 	int vector_in_01( const double *x, int nx )
 	{
-		int i;	
+		int i;
 		for( i = 0; i < nx; i++ )
 		{
 			if( x[i] < 0.0 || x[i] > 1.0 )
 			{
 				return 0;
 			}
-		}	
+		}
 		return 1;
 	}
 
 	//// Local functions/values. ////////////////////////////////////////////////
 	double linear( const double *x, const int m,int M )
 	{
-		int i;		
-		double result = 1.0;	
+		int i;
+		double result = 1.0;
 		for( i=1; i <= M-m; i++ )
 		{
 			result *= x[i-1];
 		}
-		
+
 		if( m != 1 )
 		{
 			result *= 1 - x[M-m];
 		}
-		
+
 		return correct_to_01( result, EPSILON );
 	}
 
 	double convex( const double *x, const int m,int M )
 	{
-		int i;	
-		double result = 1.0;	
+		int i;
+		double result = 1.0;
 		for( i=1; i <= M-m; i++ )
 		{
 			result *= 1.0 - cos( x[i-1]*PI/2.0 );
 		}
-		
+
 		if( m != 1 )
 		{
 			result *= 1.0 - sin( x[M-m]*PI/2.0 );
 		}
-		
+
 		return correct_to_01( result, EPSILON );
 	}
 
@@ -676,33 +676,33 @@ namespace CEC09
 	{
 		int i;
 		double result = 1.0;
-		
+
 		for( i=1; i <= M-m; i++ )
 		{
 			result *= sin( x[i-1]*PI/2.0 );
 		}
-		
+
 		if( m != 1 )
 		{
 			result *= cos( x[M-m]*PI/2.0 );
 		}
-		
+
 		return correct_to_01( result, EPSILON );
 	}
 
 	double mixed( const double *x, const int A, const double  alpha )
 	{
-		
-		const double tmp = 2.0*A*PI;		
+
+		const double tmp = 2.0*A*PI;
 		return correct_to_01( pow( 1.0-x[0]-cos( tmp*x[0] + PI/2.0 )/tmp, alpha ), EPSILON );
 	}
 
 	double disc( const double *x, const int A, const double alpha, const double beta )
 	{
-		
+
 		const double tmp1 = A*pow( x[0], beta )*PI;
 		return correct_to_01( 1.0 - pow( x[0], alpha )*pow( cos( tmp1 ), 2.0 ), EPSILON );
-		
+
 	}
 
 
@@ -727,10 +727,10 @@ namespace CEC09
 	 const double B,
 	 const double C
 	 )
-	{	
+	{
 		const double tmp1 = min_double( 0.0, floor( y-B ) ) * A*( B-y )/B;
 		const double tmp2 = min_double( 0.0, floor( C-y ) ) * ( 1.0-A )*( y-C )/( 1.0-C );
-		
+
 		return correct_to_01( A+tmp1-tmp2, EPSILON );
 	}
 
@@ -744,9 +744,9 @@ namespace CEC09
 	 )
 	{
 		const double v = A - ( 1.0-2.0*u )*fabs( floor( 0.5-u )+A );
-		
+
 		return correct_to_01( pow( y, B + ( C-B )*v ), EPSILON );
-		
+
 	}
 
 	double s_linear( const double y, const double A )
@@ -758,9 +758,9 @@ namespace CEC09
 	{
 			const double tmp1 = floor( y-A+B )*( 1.0-C+( A-B )/B )/( A-B );
 			const double tmp2 = floor( A+B-y )*( 1.0-C+( 1.0-A-B )/B )/( 1.0-A-B );
-			
+
 			return correct_to_01( 1.0 + ( fabs( y-A )-B )*( tmp1 + tmp2 + 1.0/B ), EPSILON );
-		
+
 	}
 
 	double s_multi
@@ -773,161 +773,161 @@ namespace CEC09
 	{
 			const double tmp1 = fabs( y-C )/( 2.0*( floor( C-y )+C ) );
 			const double tmp2 = ( 4.0*A+2.0 )*PI*( 0.5-tmp1 );
-			
+
 			return correct_to_01( ( 1.0 + cos( tmp2 ) + 4.0*B*pow( tmp1, 2.0 ) )/( B+2.0 ), EPSILON );
 
 	}
 
 	double r_sum( const double *y, const double *w, int ny)
 	{
-		
+
 		int i;
 		double numerator   = 0.0;
 		double denominator = 0.0;
-		
+
 		for( i = 0; i < ny; i++ )
 		{
-			
+
 			numerator   += w[i]*y[i];
 			denominator += w[i];
 		}
-		
+
 		return correct_to_01( numerator / denominator, EPSILON );
-		
+
 	}
 
 	double r_nonsep( const double *y, const int A, int ny)
 	{
-		const int y_len = ny;		
+		const int y_len = ny;
 		int j;
 		double numerator = 0.0;
-		
+
 		for( j = 0; j < y_len; j++ )
 		{
-			int k;		
+			int k;
 			numerator += y[j];
-			
+
 			for( k = 0; k <= A-2; k++ )
 			{
 				numerator += fabs( y[j] - y[( j+k+1 ) % y_len] );
 			}
 		}
-		
+
 		{
 		const double tmp = ceil( A/2.0 );
 		const double denominator = y_len*tmp*( 1.0 + 2.0*A - 2.0*tmp )/A;
-		
+
 		return correct_to_01( numerator / denominator, EPSILON );
 		}
 	}
 
 	void WFG1_M5( double *z, double *f, const unsigned int nx, const unsigned int M)
-	{	
-		
-		int i,j;	
+	{
+
+		int i,j;
 		double y[30],t1[30],t2[30],t3[30],t4[5];
-		const int k=M==2?4:2*(M-1);		
+		const int k=M==2?4:2*(M-1);
 
 		for( i = 0; i < nx; i++ )
-		{		
+		{
 			y[i] = z[i] / (2.0*( i+1 ));
 		}
 		//y = WFG1_t1(y, k);
 		for( i = 0; i < k; i++ )
 		{
 			t1[i] = y[i];
-		}	
+		}
 		for( i = k; i < nx; i++ )
 		{
 			t1[i] = s_linear( y[i], 0.35 );
 		}
-		
-		
-		//y = WFG1_t2(y, k);	
+
+
+		//y = WFG1_t2(y, k);
 		for( i = 0; i < k; i++ )
 		{
 			t2[i] = t1[i];
 		}
-		
+
 		for( i = k; i < nx; i++ )
 		{
 			t2[i] = b_flat( t1[i], 0.8, 0.75, 0.85 );
 		}
-		
-		//y = WFG1_t3(y);	
+
+		//y = WFG1_t3(y);
 		for( i = 0; i < nx; i++ )
 		{
 			t3[i] = b_poly( t2[i], 0.02 );
 		}
-		
-		//y = WFG1_t4( y,k,M,nx);	
-		
-		{	
+
+		//y = WFG1_t4( y,k,M,nx);
+
+		{
 			double w[30];
-			double y_sub[30],w_sub[30];	
+			double y_sub[30],w_sub[30];
 			double y_sub2[30],w_sub2[30];
-			
+
 			for( i = 1; i <= nx; i++)
 			{
 				w[i-1] = 2.0*i;
 			}
-			
+
 			for( i = 1; i <= M-1; i++ )
 			{
 				const int head = ( i-1 )*k/( M-1 );
 				const int tail = i*k/( M-1 );
-				
+
 				for( j = head; j < tail; j++ )
 				{
 					y_sub[j-head] = t3[j];
 					w_sub[j-head] = w[j];
-				}		
+				}
 				t4[i-1] = r_sum( y_sub, w_sub,tail-head );
-			}	
-			
+			}
+
 			for( j = k; j < nx; j++ )
-			{	
+			{
 				y_sub2[j-k] = t3[j];
 				w_sub2[j-k] = w[j];
-			}	
-			t4[i-1] = r_sum( y_sub2, w_sub2,nx-k );		
+			}
+			t4[i-1] = r_sum( y_sub2, w_sub2,nx-k );
 		}
 		//shape
 		{
-			int  m;	
+			int  m;
 			short  A[5];
-			double x[5],h[5],S[5];		
-			
-			A[0] = 1;	
+			double x[5],h[5],S[5];
+
+			A[0] = 1;
 			for( i = 1; i < M-1; i++ )
 			{
 				A[i] = 1;
 			}
 			for( i = 0; i < M-1; i++ )
 			{
-				double tmp1;		
+				double tmp1;
 				tmp1 = t4[M-1];
 				if( A[i] > tmp1 )
-					tmp1 = A[i];		
+					tmp1 = A[i];
 				x[i] = tmp1*( t4[i] - 0.5 ) + 0.5;
-			}	
+			}
 			x[M-1] = t4[M-1];
-			
+
 			for( m = 1; m <= M-1; m++ )
 			{
 				h[m-1] = convex( x, m,M );
 			}
 			h[m-1] = mixed( x, 5, 1.0 );
-			
+
 			for( m = 1; m <= M; m++ )
 			{
 				S[m-1] = m*2.0;
 			}
-			
+
 			for( i = 0; i < M; i++ )
-			{		
+			{
 				f[i] = 1.0*x[M-1] + S[i]*h[i];
-			}		
+			}
 		}
 	}
 }

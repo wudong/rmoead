@@ -10,19 +10,15 @@
 
 #include "Chromosome.h"
 #include "Function.h"
+#include "EvolutionaryAlgorithm.h"
 
-class SingleObjEA;
-typedef boost::shared_ptr<SingleObjEA> PopulationPtr;
-
-class SingleObjEA {
+class SingleObjEA : public EvolutionaryAlgorithm<ChromosomePtr>{
 public:
 	SingleObjEA(int popsize);
 
 	virtual ~SingleObjEA() {
 	}
 	;
-
-	std::vector<ChromosomePtr> individuals;
 
 	void seed(ChromosomePtr seed);
 	void evolve(int fes);
@@ -31,11 +27,7 @@ public:
 	ChromosomePtr findBest();
 
 private:
-	boost::shared_ptr<Function> fitnessFunc;
-	double fitness(double*);
-	double fitness(std::vector<double>&);
 
-	double TEMP_BUFFER[100];
 };
 
 #endif /* POPULATION_H_ */

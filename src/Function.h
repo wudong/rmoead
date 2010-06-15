@@ -18,6 +18,9 @@ public:
 	void operator() (ChromosomePtr chrom);
 
 	virtual void evaluate(double* var, double* obj){};
+	virtual std::string & getName() =0;
+	virtual int getObjDim() = 0;
+	virtual int getVarDim() = 0;
 
 private:
 	double TEMP_X[100];

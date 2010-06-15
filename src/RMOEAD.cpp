@@ -7,24 +7,9 @@
 
 #include "RMOEAD.h"
 
-RMOEAD::RMOEAD() {
-}
 
-RMOEAD::~RMOEAD() {
-}
-
-void RMOEAD::setFunction(FunctionPtr ptr) {
-	this->function = ptr;
-}
-
-void RMOEAD::evaluate(ChromosomePtr chrom) {
-	(*this->function)(chrom);
-}
-
-void RMOEAD::init_population() {
-
+void RMOEAD::initPop() {
 	firstime_adjust = true;
-
 	char filename[1024];
 	// Read weight vectors from a data file
 	int pops = getPopulationSize();
@@ -605,10 +590,10 @@ void RMOEAD::evol_population() {
 	delete[] perm;
 }
 
-void RMOEAD::exec_emo(int run) {
+void RMOEAD::evolve() {
 	nfes = 0;
 	int gen = 1;
-	init_population();
+	initPop();
 
 	int total_evaluations = cfg_getint(configurator, "total_evaluations");
 
@@ -622,7 +607,7 @@ void RMOEAD::exec_emo(int run) {
 		gen++;
 		for (unsigned int idx = 0; idx < population.size(); idx++)
 			population[idx]->postItr(gen);
-		save_state(run, save_front_counter, save_selection_counter);
+		save_state(runid, save_front_counter, save_selection_counter);
 
 		//weight adjust.
 		if (ifUseReactive() && ifUseWeightAdjust()) {//doing the weight adjust.
@@ -632,15 +617,16 @@ void RMOEAD::exec_emo(int run) {
 
 	// save the final population - X space
 	{
+		std::string funcname = this->function->getName();
 		char file[100];
 		sprintf(file, "%s/POF_MOEAD_%s_RUN%d.txt", output_dir.c_str(),
-				strTestInstance, run);
+				funcname.c_str(), runid);
 		std::string filename(file);
 		save_front(filename);
 
 		//save the weight distribution
 		sprintf(file, "%s/MOEAD_%s_RUN%d-Selection.txt", output_dir.c_str(),
-				strTestInstance, run);
+				funcname.c_str(), runid);
 		std::string filename2(file);
 		save_selection(filename2);
 
@@ -655,10 +641,12 @@ void RMOEAD::exec_emo(int run) {
 
 void RMOEAD::save_state(int run, int& save_front_counter,
 		int& save_selection_counter) {
+
 	if (nfes > save_front_counter * 5000) {
+		std::string funcname = this->function->getName();
 		char file[100];
 		sprintf(file, "%s/POF_MOEAD_%s_EVA_%d-%d.txt", output_dir.c_str(),
-				strTestInstance, run, save_front_counter);
+				funcname.c_str(), run, save_front_counter);
 		std::string filename(file);
 		save_front(filename);
 		save_front_counter++;
@@ -666,9 +654,10 @@ void RMOEAD::save_state(int run, int& save_front_counter,
 	}
 
 	if (nfes > save_selection_counter * 30000) {
+		std::string funcname = this->function->getName();
 		char file[100];
 		sprintf(file, "%s/POF_MOEAD_%s_SELEC_%d-%d.txt", output_dir.c_str(),
-				strTestInstance, run, save_selection_counter);
+				funcname.c_str(), run, save_selection_counter);
 		std::string filename(file);
 		save_selection(filename);
 		save_selection_counter++;

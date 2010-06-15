@@ -4,6 +4,7 @@
 #include "RMOEAD.h"
 #include <tclap/CmdLine.h>
 #include <stdlib.h>
+#include "Cec09Function.h"
 
 int main(int argc, char** argv) {
 	//handel the command line
@@ -96,7 +97,6 @@ int main(int argc, char** argv) {
 		Problem instance;
 		getTestInstance(instance, inst);
 
-		strTestInstance = instance.name;
 		nvar = instance.nvar;
 		nobj = instance.nobj;
 
@@ -105,7 +105,7 @@ int main(int argc, char** argv) {
 		if (idx != 0) {
 			for (j = 0; j < idx; j++) {
 				char* prob = getProblemToTest(j);
-				if (strcmp(prob, strTestInstance) == 0) {
+				if (strcmp(prob, instance.name) == 0) {
 					test = true;
 					break;
 				}
@@ -117,7 +117,7 @@ int main(int argc, char** argv) {
 			continue;
 
 		printf("\n -- Instance: %s, %d variables %d objectives \n\n",
-				strTestInstance, nvar, nobj);
+				instance.name, nvar, nobj);
 
 		clock_t start, temp, finish;
 		double duration, last = 0;
@@ -126,23 +126,27 @@ int main(int argc, char** argv) {
 		//log information.
 		std::fstream fout;
 		char file[50];
-		sprintf(file, "%s/MOEAD_%s.log", input_dir.c_str(), strTestInstance);
+		sprintf(file, "%s/MOEAD_%s.log", input_dir.c_str(), instance.name);
 		std::string filename(output_dir);
 		filename.append(file);
 		fout.open(filename.c_str(), std::ios::out);
 
-		fout << "Inst: " << strTestInstance << endl;
+		boost::shared_ptr<std::string> funcname(new std::string(instance.name));
+		FunctionPtr cec09(new Cec09Function(*funcname, instance.nvar, instance.nobj));
+
+		fout << "Inst: " << funcname << endl;
 		fout << "Time: \n\n";
 
 		for (int i = 0; i < nobj; i++)
 			idealpoint[i] = 10e+30;
 
 		for (int run = 1; run <= total_run; run++) {
-			printf("\n %s: -- %d-th run  -- \n", strTestInstance, run);
+			printf("\n %s: -- %d-th run  -- \n", instance.name, run);
 
-			RMOEAD MOEAD;
-
-			MOEAD.exec_emo(run);
+			RMOEAD moead;
+			moead.setFunction(cec09);
+			moead.setRunId(run);
+			moead.evolve();
 
 			temp = clock();
 			duration = (double) (temp - start) / CLOCKS_PER_SEC;

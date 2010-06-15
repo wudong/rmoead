@@ -14,7 +14,7 @@ unsigned int     nvar,  nobj;     //  the number of variables and objectives
 
 double  lowBound = 0,   uppBound = 1;   //  lower and upper bounds of variables
 
-char*    strTestInstance;
+//char*    strTestInstance;
 
 std::string    output_dir;
 std::string    input_dir;
