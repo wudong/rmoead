@@ -9,14 +9,26 @@
 
 void SingleObjEA::evolve(int fes) {
 	while (this->fesCounter < fes) {
-		ChromosomePtr best = findBest(true);
-		ChromosomePtr rand1, rand2;
-		while ((rand1 = randomInd()) == best)
-			;
-		while ((rand2 = randomInd()) == best || (rand2 == rand1))
-			;
+		std::vector<ChromosomePtr>::iterator current = population.begin();
+		std::vector<ChromosomePtr>::iterator end = population.end();
 
+		while (current != end) {
+			ChromosomePtr best = findBest(true);
+			ChromosomePtr rand1, rand2;
+			while ((rand1 = randomInd()) == best || (rand1 == *current))
+				;
+			while ((rand2 = randomInd()) == best || (rand2 == rand1) || (rand2 == *current))
+				;
 
+			ChromosomePtr child(new Chromosome());
+
+			this->diff_evo_xover_current2best(*current, best,
+					rand1, rand2, child,  de_f, de_cr);
+			this->evaluate(child);
+			if (child->y_obj[0] < (*current)->y_obj[0]){
+				(*(*current)) = *child;
+			}
+		}
 	}
 }
 
@@ -43,8 +55,8 @@ ChromosomePtr SingleObjEA::findBest(bool best) {
 
 	current++;
 	while (current != end) {
-		if (best ? (*current)->y_obj[0] < bestValue :
-		(*current)->y_obj[0] > bestValue) {
+		if (best ? (*current)->y_obj[0] < bestValue : (*current)->y_obj[0]
+				> bestValue) {
 			bestInd = *current;
 			bestValue = bestInd->y_obj[0];
 		}

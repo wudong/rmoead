@@ -14,7 +14,7 @@
 
 class SingleObjEA : public EvolutionaryAlgorithm<ChromosomePtr>{
 public:
-	SingleObjEA(int popsize);
+	SingleObjEA(): de_f(0.5), de_cr(1){};
 
 	virtual ~SingleObjEA() {
 	}
@@ -27,6 +27,8 @@ public:
 
 private:
 
+	double de_f ;
+	double de_cr;
 };
 
 #endif /* POPULATION_H_ */
