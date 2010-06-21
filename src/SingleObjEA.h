@@ -18,13 +18,12 @@ public:
 
 	virtual ~SingleObjEA() {
 	}
-	;
 
-	void seed(ChromosomePtr seed);
+	virtual void initPop(int popsize);
+	virtual void seed(ChromosomePtr seed);
 	void evolve(int fes);
-	void setFitnessFunction(Function& func);
 
-	ChromosomePtr findBest();
+	virtual ChromosomePtr findBest(bool best);
 
 private:
 

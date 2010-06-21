@@ -10,6 +10,7 @@
 
 #include "global.h"
 #include "common.h"
+#include "RandomGenerator.h"
 #include <boost/smart_ptr.hpp>
 
 class Chromosome;
@@ -28,7 +29,7 @@ public:
 
 	ChromosomePtr clone();
 
-	void   rnd_init();
+	void   rnd_init(RandomGeneratorPtr r);
 
 	void show_objective();
 	void show_variable();

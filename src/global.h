@@ -14,7 +14,6 @@
 #include <algorithm>
 #include <iomanip>
 
-#include <gsl/gsl_rng.h>
 #include <confuse.h>
 #include "configurator.h"
 
@@ -43,24 +42,11 @@ extern std::string input_dir;
 extern double idealpoint[BUFFER_SIZE];
 extern double scale[BUFFER_SIZE];
 
-extern double temp_buffer_1[BUFFER_SIZE];
-extern double temp_buffer_2[BUFFER_SIZE];
-extern double temp_buffer_3[BUFFER_SIZE];
-extern double temp_buffer_4[BUFFER_SIZE];
-
 extern int etax, etam; // distribution indexes of crossover and mutation
 
 extern double realx, realm, realb; // crossover, mutation, selection probabilities
 
 extern cfg_t *configurator;
-
-//------------------Random Seed---------------------------------------
-
-extern long random_seed;
-
-extern const gsl_rng_type * rand_T;
-
-extern gsl_rng * rand_generator;
 
 //------------------number of function evaluation.
 extern int nfes;

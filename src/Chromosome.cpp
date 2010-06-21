@@ -10,7 +10,6 @@
 Chromosome::Chromosome() {
 	x_var.resize(nvar);
 	y_obj.resize(nvar);
-	rnd_init();
 	rank = 0;
 }
 
@@ -22,9 +21,9 @@ ChromosomePtr Chromosome::clone(){
 	*chrom = *this;
 }
 
-void Chromosome::rnd_init() {
+void Chromosome::rnd_init(RandomGeneratorPtr r) {
 	for (unsigned int n = 0; n < nvar; n++)
-		x_var[n] = nextRandomDouble(lowBound, uppBound);
+		x_var[n] = r->nextRandomDouble(lowBound, uppBound);
 
 	this->evaluated = false;
 }

@@ -10,7 +10,6 @@
 
 #include "global.h"
 #include "EvolutionaryAlgorithm.h"
-#include "recomb.h"
 #include "common.h"
 #include "Chromosome.h"
 #include "Subproblem.h"
@@ -27,7 +26,7 @@ public:
 
 	void save_front(std::string & savefilename);
 	void save_pos(std::string & savefilename);
-	void initPop();
+	void initPop(int popsize);
 
 private:
 	void order_selection(vector<SubproblemPtr> & selected);

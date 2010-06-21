@@ -9,6 +9,7 @@
 int main(int argc, char** argv) {
 	//handel the command line
 	std::string paramFile;
+	long random_seed;
 	try {
 		TCLAP::CmdLine cmd("R-MOEA/D Help Message", ' ', "1.0");
 
@@ -59,33 +60,12 @@ int main(int argc, char** argv) {
 		exit(1);
 	}
 
-	//also print the parameters to a file in the output directory.
-//	std::string paramfile;
-//	paramfile = output_dir + "/params.txt";
-//	FILE* paramfileFILE = fopen(paramfile.c_str(), "w");
-//	printAllParameters(paramfileFILE);
-//	fclose(paramfileFILE);
-
-	//set the random generator.
-	rand_T = gsl_rng_default;
-	rand_generator = gsl_rng_alloc(rand_T);
-
-	int seed = getRandomSeed();
-	if (seed!=0)
-		random_seed=seed;
-
-	gsl_rng_set(rand_generator, random_seed);
-    setRandomSeed(random_seed);
-	//std::cout << "Random Seed: " << random_seed << std::endl;
-	//set it back
+	RandomGeneratorPtr randG(new RandomGenerator(random_seed));
 
 	//print the parameters to the std output.
 	std: cout << "Parameter Used: " << std::endl;
 	printAllParameters( stdout);
 
-	//the random generator type and seed can be set in environment variable
-	//GSL_RNG_TYPE and GSL_RNG_SEED
-	gsl_rng_env_setup();
 
 	int numOfInstance = getNumberofTestInstance();
 	int total_run = getTotalNumberofRun();
@@ -144,6 +124,7 @@ int main(int argc, char** argv) {
 			printf("\n %s: -- %d-th run  -- \n", instance.name, run);
 
 			RMOEAD moead;
+			moead.setRandomGenerator(randG);
 			moead.setFunction(cec09);
 			moead.setRunId(run);
 			moead.evolve();
@@ -166,7 +147,6 @@ int main(int argc, char** argv) {
 		fout.close();
 
 	}
-	gsl_rng_free(rand_generator);
 	cfg_free(configurator);
 }
 

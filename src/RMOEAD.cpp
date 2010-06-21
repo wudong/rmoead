@@ -8,7 +8,7 @@
 #include "RMOEAD.h"
 
 
-void RMOEAD::initPop() {
+void RMOEAD::initPop(int popsize) {
 	firstime_adjust = true;
 	char filename[1024];
 	// Read weight vectors from a data file
@@ -24,6 +24,7 @@ void RMOEAD::initPop() {
 
 	for (int i = 0; i < pops; i++) {
 		ChromosomePtr ch(new Chromosome());
+		ch->rnd_init(randGenerator);
 		evaluate(ch);
 
 		SubproblemPtr sub(new Subproblem(ch));
@@ -285,6 +286,7 @@ void RMOEAD::weight_adjust_add(vector<SubproblemPtr> & subproblems) {
 			insertnumber = fmin(10, insertnumber); //cap it.
 			for (int idx = 1; idx < insertnumber; idx++) {
 				ChromosomePtr ptr(new Chromosome());
+				ptr->rnd_init(randGenerator);
 				evaluate(ptr);
 				SubproblemPtr sub(new Subproblem(ptr));
 
@@ -322,10 +324,10 @@ void RMOEAD::tour_selection(vector<SubproblemPtr> &selected) {
 	int depth = getTournamentSize();
 
 	while (selected.size() < getSelectionSize()) {
-		int best_idd = nextRandomInt(candidate.size()), i2;
+		int best_idd = randGenerator->nextRandomInt(candidate.size()), i2;
 		int best_sub = candidate[best_idd], s2;
 		for (int i = 1; i < depth; i++) {
-			i2 = nextRandomInt(candidate.size());
+			i2 = randGenerator->nextRandomInt(candidate.size());
 			s2 = candidate[i2];
 			if (population[s2]->utility > population[best_sub]->utility) //using the cec selection utility.
 			{
@@ -383,7 +385,7 @@ void RMOEAD::sort_selection(vector<SubproblemPtr> &selected) {
 		for (unsigned int i = 0; i < us; i++) {
 			if (idx[i] >= 0) {
 				double p = pow(rate, i);
-				double rn = nextRandomDouble();
+				double rn = randGenerator->nextRandomDouble();
 				if (rn < p) {
 					selected.push_back(population[idx[i]]);
 					idx[i] = -idx[i];
@@ -414,7 +416,7 @@ void RMOEAD::update_problem_de(ChromosomePtr indiv, SubproblemPtr id, bool type)
 	for (int k = 0; k < size; k++)
 		perm[k] = k;
 
-	randomShuffle(perm, size);
+	randGenerator->randomShuffle(perm, size);
 
 	int limit = getUpdateLimit();
 
@@ -479,10 +481,10 @@ void RMOEAD::mate_selection(vector<SubproblemPtr> &list, SubproblemPtr cid,
 	SubproblemPtr parent;
 	while (list.size() < size) {
 		if (type) {
-			id = nextRandomInt(ss);
+			id = randGenerator->nextRandomInt(ss);
 			parent = cid->neighbour[id];
 		} else
-			parent = population[nextRandomInt(population.size())];
+			parent = population[randGenerator->nextRandomInt(population.size())];
 
 		// avoid the repeated selection
 		bool flag = true;
@@ -501,7 +503,7 @@ void RMOEAD::mate_selection(vector<SubproblemPtr> &list, SubproblemPtr cid,
 
 void RMOEAD::evolve_de(SubproblemPtr c_sub) {
 
-	double rnd = nextRandomDouble();
+	double rnd = randGenerator->nextRandomDouble();
 	double prob = getUpdateNeighbourProb();
 	bool type_neighbour = (rnd < prob);
 
@@ -527,7 +529,7 @@ void RMOEAD::evolve_de(SubproblemPtr c_sub) {
 
 	double w = getDEWeight();
 	if (w < 1) {
-		w = nextRandomDouble(w, 1);
+		w = randGenerator->nextRandomDouble(w, 1);
 	}
 
 	for (unsigned int idx = 0; idx < nvar; idx++) {
@@ -552,7 +554,7 @@ void RMOEAD::evol_population() {
 	bool reactive = ifUseReactive();
 
 	if (reactive) {
-		double rnd = nextRandomDouble();
+		double rnd = randGenerator->nextRandomDouble();
 		double prob = getReactiveProb();
 
 		if (rnd < prob) {
@@ -577,7 +579,7 @@ void RMOEAD::evol_population() {
 	for (unsigned int k = 0; k < selectionsize; k++)
 		perm[k] = k;
 
-	randomShuffle(perm, selectionsize);
+	randGenerator->randomShuffle(perm, selectionsize);
 
 	for (unsigned int sub = 0; sub < selectionsize; sub++) {
 		SubproblemPtr c_sub = selection[perm[sub]];
@@ -593,7 +595,7 @@ void RMOEAD::evol_population() {
 void RMOEAD::evolve() {
 	nfes = 0;
 	int gen = 1;
-	initPop();
+	initPop(0);
 
 	int total_evaluations = cfg_getint(configurator, "total_evaluations");
 

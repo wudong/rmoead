@@ -159,30 +159,6 @@ Chromosome.cpp.s:
 	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/Chromosome.cpp.s
 .PHONY : Chromosome.cpp.s
 
-EvolutionaryAlgorithm.o: EvolutionaryAlgorithm.cpp.o
-.PHONY : EvolutionaryAlgorithm.o
-
-# target to build an object file
-EvolutionaryAlgorithm.cpp.o:
-	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/EvolutionaryAlgorithm.cpp.o
-.PHONY : EvolutionaryAlgorithm.cpp.o
-
-EvolutionaryAlgorithm.i: EvolutionaryAlgorithm.cpp.i
-.PHONY : EvolutionaryAlgorithm.i
-
-# target to preprocess a source file
-EvolutionaryAlgorithm.cpp.i:
-	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/EvolutionaryAlgorithm.cpp.i
-.PHONY : EvolutionaryAlgorithm.cpp.i
-
-EvolutionaryAlgorithm.s: EvolutionaryAlgorithm.cpp.s
-.PHONY : EvolutionaryAlgorithm.s
-
-# target to generate assembly for a file
-EvolutionaryAlgorithm.cpp.s:
-	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/EvolutionaryAlgorithm.cpp.s
-.PHONY : EvolutionaryAlgorithm.cpp.s
-
 Function.o: Function.cpp.o
 .PHONY : Function.o
 
@@ -230,6 +206,30 @@ RMOEAD.s: RMOEAD.cpp.s
 RMOEAD.cpp.s:
 	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/RMOEAD.cpp.s
 .PHONY : RMOEAD.cpp.s
+
+RandomGenerator.o: RandomGenerator.cpp.o
+.PHONY : RandomGenerator.o
+
+# target to build an object file
+RandomGenerator.cpp.o:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/RandomGenerator.cpp.o
+.PHONY : RandomGenerator.cpp.o
+
+RandomGenerator.i: RandomGenerator.cpp.i
+.PHONY : RandomGenerator.i
+
+# target to preprocess a source file
+RandomGenerator.cpp.i:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/RandomGenerator.cpp.i
+.PHONY : RandomGenerator.cpp.i
+
+RandomGenerator.s: RandomGenerator.cpp.s
+.PHONY : RandomGenerator.s
+
+# target to generate assembly for a file
+RandomGenerator.cpp.s:
+	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/RandomGenerator.cpp.s
+.PHONY : RandomGenerator.cpp.s
 
 SingleObjEA.o: SingleObjEA.cpp.o
 .PHONY : SingleObjEA.o
@@ -399,30 +399,6 @@ moea.cpp.s:
 	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/moea.cpp.s
 .PHONY : moea.cpp.s
 
-recomb.o: recomb.cpp.o
-.PHONY : recomb.o
-
-# target to build an object file
-recomb.cpp.o:
-	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/recomb.cpp.o
-.PHONY : recomb.cpp.o
-
-recomb.i: recomb.cpp.i
-.PHONY : recomb.i
-
-# target to preprocess a source file
-recomb.cpp.i:
-	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/recomb.cpp.i
-.PHONY : recomb.cpp.i
-
-recomb.s: recomb.cpp.s
-.PHONY : recomb.s
-
-# target to generate assembly for a file
-recomb.cpp.s:
-	$(MAKE) -f CMakeFiles/rmoead.dir/build.make CMakeFiles/rmoead.dir/recomb.cpp.s
-.PHONY : recomb.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -438,15 +414,15 @@ help:
 	@echo "... Chromosome.o"
 	@echo "... Chromosome.i"
 	@echo "... Chromosome.s"
-	@echo "... EvolutionaryAlgorithm.o"
-	@echo "... EvolutionaryAlgorithm.i"
-	@echo "... EvolutionaryAlgorithm.s"
 	@echo "... Function.o"
 	@echo "... Function.i"
 	@echo "... Function.s"
 	@echo "... RMOEAD.o"
 	@echo "... RMOEAD.i"
 	@echo "... RMOEAD.s"
+	@echo "... RandomGenerator.o"
+	@echo "... RandomGenerator.i"
+	@echo "... RandomGenerator.s"
 	@echo "... SingleObjEA.o"
 	@echo "... SingleObjEA.i"
 	@echo "... SingleObjEA.s"
@@ -468,9 +444,6 @@ help:
 	@echo "... moea.o"
 	@echo "... moea.i"
 	@echo "... moea.s"
-	@echo "... recomb.o"
-	@echo "... recomb.i"
-	@echo "... recomb.s"
 .PHONY : help
 
 

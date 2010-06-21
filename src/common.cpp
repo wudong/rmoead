@@ -16,6 +16,8 @@ void minsort(double* x, int* idx, size_t size) {
 }
 
 double dist_vector(std::vector<double> vec1, std::vector<double> vec2, int dim) {
+	double temp_buffer_1[BUFFER_SIZE];
+	double temp_buffer_2[BUFFER_SIZE];
 	std::copy(vec1.begin(), vec1.end(), temp_buffer_1);
 	std::copy(vec2.begin(), vec2.end(), temp_buffer_2);
 	return dist_vector(temp_buffer_1, temp_buffer_2, dim);
@@ -29,6 +31,8 @@ double dist_vector(double* vec1, double* vec2, int dim) {
 }
 
 bool dominate_vector(std::vector<double> u, std::vector<double> v, int dim) {
+	double temp_buffer_1[BUFFER_SIZE];
+	double temp_buffer_2[BUFFER_SIZE];
 	std::copy(u.begin(), u.end(), temp_buffer_1);
 	std::copy(v.begin(), v.end(), temp_buffer_2);
 	return dominate_vector(temp_buffer_1, temp_buffer_2, dim);
@@ -47,6 +51,8 @@ bool dominate_vector(double* u, double* v, int dim) {
 }
 
 double fitnessfunction(std::vector<double>& y_obj, std::vector<double>& nambda) {
+	double temp_buffer_1[BUFFER_SIZE];
+	double temp_buffer_2[BUFFER_SIZE];
 	std::copy(y_obj.begin(), y_obj.end(), temp_buffer_1);
 	std::copy(nambda.begin(), nambda.end(), temp_buffer_2);
 	double result = fitnessfunction(temp_buffer_1, temp_buffer_2);
@@ -116,24 +122,3 @@ void load_data(char filename[1024], vector<vector<double> > &data, int dim) {
 	readf.close();
 }
 
-double nextRandomDouble() {
-	return gsl_rng_uniform(rand_generator);
-}
-
-double nextRandomDouble(double low, double high) {
-	assert(high >= low);
-	if (high == low)
-		return high;
-	else {
-		double value = low + gsl_rng_uniform(rand_generator) * (high - low);
-		return value;
-	}
-}
-
-unsigned int nextRandomInt(unsigned int high) {
-	return gsl_rng_uniform_int(rand_generator, high);
-}
-
-void randomShuffle(int* perm, unsigned int size) {
-	gsl_ran_shuffle(rand_generator, perm, size, sizeof(int));
-}

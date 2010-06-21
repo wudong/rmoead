@@ -18,12 +18,5 @@ double fitnessfunction(std::vector<double>& y_obj, std::vector<double>& nambda);
 double fitnessfunction(double* y_obj, double* namda);
 
 void load_data(char filename[1024], vector<vector<double> > &data, int dim);
-double nextRandomDouble();
-
-double nextRandomDouble(double low, double high);
-
-unsigned int nextRandomInt(unsigned int high);
-
-void randomShuffle(int* perm, unsigned int size);
 
 #endif
