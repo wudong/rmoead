@@ -11,16 +11,20 @@
 
 class Function {
 public:
-	Function();
+	Function(){};
 	virtual ~Function();
 
 	void operator() (double *var, double *obj);
 	void operator() (ChromosomePtr chrom);
 
+	virtual boost::shared_ptr<std::string> getName() {return name;};
+
 	virtual void evaluate(double* var, double* obj){};
-	virtual std::string & getName() =0;
 	virtual int getObjDim() = 0;
 	virtual int getVarDim() = 0;
+
+protected:
+	boost::shared_ptr<std::string> name;
 
 private:
 	double TEMP_X[100];

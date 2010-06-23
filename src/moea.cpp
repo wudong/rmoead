@@ -1,10 +1,12 @@
-#ifndef UNIT_TEST
+
 
 #include "global.h"
 #include "RMOEAD.h"
 #include <tclap/CmdLine.h>
 #include <stdlib.h>
 #include "Cec09Function.h"
+
+#ifndef UNIT_TEST
 
 int main(int argc, char** argv) {
 	//handel the command line

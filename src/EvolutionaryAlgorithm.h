@@ -14,14 +14,23 @@
 
 template<typename T>
 class EvolutionaryAlgorithm {
+
+protected:
+	int runid;
+	int fesCounter;
+	FunctionPtr function;
+	RandomGeneratorPtr randGenerator;
+	std::vector<T> population;
+
 public:
-	EvolutionaryAlgorithm() {
+	EvolutionaryAlgorithm() :fesCounter(0){
 	}
 
 	virtual ~EvolutionaryAlgorithm() {
 	}
 
 	virtual void evaluate(ChromosomePtr chrom);
+
 	virtual void setFunction(FunctionPtr func) {
 		this->function = func;
 	}
@@ -77,12 +86,7 @@ public:
 	void partical_swarm_evol(ChromosomePtr current, ChromosomePtr best,
 			ChromosomePtr local, double* direction);
 
-protected:
-	int runid;
-	int fesCounter;
-	FunctionPtr function;
-	RandomGeneratorPtr randGenerator;
-	std::vector<T> population;
+
 };
 
 template<typename T>

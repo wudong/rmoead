@@ -619,16 +619,16 @@ void RMOEAD::evolve() {
 
 	// save the final population - X space
 	{
-		std::string funcname = this->function->getName();
+		boost::shared_ptr<std::string> funcname = this->function->getName();
 		char file[100];
 		sprintf(file, "%s/POF_MOEAD_%s_RUN%d.txt", output_dir.c_str(),
-				funcname.c_str(), runid);
+				funcname->c_str(), runid);
 		std::string filename(file);
 		save_front(filename);
 
 		//save the weight distribution
 		sprintf(file, "%s/MOEAD_%s_RUN%d-Selection.txt", output_dir.c_str(),
-				funcname.c_str(), runid);
+				funcname->c_str(), runid);
 		std::string filename2(file);
 		save_selection(filename2);
 
@@ -644,11 +644,11 @@ void RMOEAD::evolve() {
 void RMOEAD::save_state(int run, int& save_front_counter,
 		int& save_selection_counter) {
 
+	boost::shared_ptr<std::string> funcname = this->function->getName();
 	if (nfes > save_front_counter * 5000) {
-		std::string funcname = this->function->getName();
 		char file[100];
 		sprintf(file, "%s/POF_MOEAD_%s_EVA_%d-%d.txt", output_dir.c_str(),
-				funcname.c_str(), run, save_front_counter);
+				funcname->c_str(), run, save_front_counter);
 		std::string filename(file);
 		save_front(filename);
 		save_front_counter++;
@@ -656,10 +656,9 @@ void RMOEAD::save_state(int run, int& save_front_counter,
 	}
 
 	if (nfes > save_selection_counter * 30000) {
-		std::string funcname = this->function->getName();
 		char file[100];
 		sprintf(file, "%s/POF_MOEAD_%s_SELEC_%d-%d.txt", output_dir.c_str(),
-				funcname.c_str(), run, save_selection_counter);
+				funcname->c_str(), run, save_selection_counter);
 		std::string filename(file);
 		save_selection(filename);
 		save_selection_counter++;

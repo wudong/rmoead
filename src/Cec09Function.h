@@ -14,15 +14,13 @@
 
 class Cec09Function: public Function {
 public:
-	Cec09Function(std::string name, int vd, int od);
+	Cec09Function(boost::shared_ptr<std::string> funcname, int vd, int od);
 	virtual ~Cec09Function(){};
 	void evaluate(double* var, double* obj);
-	std::string & getName();
 	inline int getObjDim(){return objdim;};
 	inline int getVarDim(){return vardim;};
 
 private:
-	std::string funcname;
 	double scale;
 	int objdim;
 	int vardim;

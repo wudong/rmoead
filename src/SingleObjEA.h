@@ -14,14 +14,14 @@
 
 class SingleObjEA : public EvolutionaryAlgorithm<ChromosomePtr>{
 public:
-	SingleObjEA(): de_f(0.5), de_cr(1){};
+	SingleObjEA(): de_f(0.5), de_cr(1), fes(10000) {};
 
 	virtual ~SingleObjEA() {
 	}
 
 	virtual void initPop(int popsize);
 	virtual void seed(ChromosomePtr seed);
-	void evolve(int fes);
+	virtual void evolve();
 
 	virtual ChromosomePtr findBest(bool best);
 
@@ -29,6 +29,7 @@ private:
 
 	double de_f ;
 	double de_cr;
+	double fes;
 };
 
 #endif /* POPULATION_H_ */

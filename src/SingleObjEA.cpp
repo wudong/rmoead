@@ -7,7 +7,7 @@
 
 #include "SingleObjEA.h"
 
-void SingleObjEA::evolve(int fes) {
+void SingleObjEA::evolve() {
 	while (this->fesCounter < fes) {
 		std::vector<ChromosomePtr>::iterator current = population.begin();
 		std::vector<ChromosomePtr>::iterator end = population.end();
@@ -37,7 +37,7 @@ void SingleObjEA::seed(ChromosomePtr seed) {
 }
 
 void SingleObjEA::initPop(int popsize) {
-	this->population.resize(popsize);
+	//this->population.resize(popsize);
 	for (unsigned int i = 0; i < popsize; i++) {
 		ChromosomePtr chrom(new Chromosome());
 		chrom->rnd_init(randGenerator);
